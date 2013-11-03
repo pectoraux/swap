@@ -1,22 +1,32 @@
 var world = function() {	
-	var c;
+	var ctx;
 
 	var aiEntities = [];
 	var player;
 
 	var floor = [];
-	var width, height;
-	var gridSize = 30;
+	var width, height, sizeX, sizeY;
+	var gridSize;
+
+	var fps = 30;
+
+	var hitSpace = false;
 
 	var initLevel = function(level, canvasId) {
 		// inits level, restarts game
 		var canvas = document.getElementById(canvasId);
+		input.init();
 		if (canvas.getContext) {
 			ctx = canvas.getContext("2d");
-			var width = canvas.width;
-			var height = canvas.height
+			width = canvas.width;
+			height = canvas.height
+			sizeX = levels[level].sizeX;
+			sizeY = levels[level].sizeY;
+			gridSize = width/sizeX;
+			console.log(gridSize);
 			loadLevel(level);
-			draw(ctx);
+
+			intervalId = setInterval(run, 1000 / fps);
 		}
 	}
 
@@ -32,48 +42,64 @@ var loadLevel = function(index) {
 				else {
 					floor[y].push(new Tile(0));	
 					if(x==currentLevel.startX && y==currentLevel.startY)
-						player = new AI(x, y, currentLevel.tiles[y][x]);
+						player = new AI(x*gridSize+gridSize/2, y*gridSize+gridSize/2, currentLevel.tiles[y][x]);
 					else {
-						aiEntities.push(new AI(x, y, currentLevel.tiles[y][x]));
+						aiEntities.push(new AI(x*gridSize+gridSize/2, y*gridSize+gridSize/2, currentLevel.tiles[y][x]));
 					}
 				}
 			}
 		}
 	}
 
-	var update = function() {
+	var run = function() {
+		update();
+		draw();
+	}	
 
+	var update = function() {
+		if(input.keys[input.right])
+			player.x+=gridSize/10;
+		if(input.keys[input.left])
+			player.x-=gridSize/10;
+		if(input.keys[input.up])
+			player.y-=gridSize/10;
+		if(input.keys[input.down])
+			player.y+=gridSize/10;
+		if(input.keys[input.space]==false && hitSpace==true)
+			cyclePlayer();
+		if(input.keys[input.space])
+			hitSpace = true;
+		else
+			hitSpace = false;
 	}
 
-	var draw = function(ctx) {
+	var draw = function() {
 		//iterate through and draw tiles first, then entities
-		// physics(); //yes please recursion
-		update();
-		for (var y = 0; y < height; y+=gridSize) {
-			for (var x = 0; x < width; x+=gridSize) {
+		for (var y = 0; y < sizeY; y++) {
+			for (var x = 0; x < sizeX; x++) {
 				ctx.fillStyle = floor[y][x].color;
-				ctx.fillRect(x, y, x + gridSize, y + gridSize);
+				ctx.fillRect(x*gridSize, y*gridSize, gridSize, gridSize);
 			}
 		}
-		for (var i = 0; i < aiEntities.size; i++) {
+		for (var i = 0; i < aiEntities.length; i++) {
 			ctx.fillStyle = aiEntities[i].color;
 			ctx.beginPath();
-			ctx.arc(aiEntities[i].x / 2, aiEntities.y / 2, gridSize / 2 - 5, 0, 2*Math.PI);
+			ctx.arc(aiEntities[i].x, aiEntities[i].y, gridSize / 2, 0, 2*Math.PI);
 			ctx.fill();
 		}
-		if (typeof player != "undefined") {
+		if (player) {
 			ctx.fillStyle = player.color;
 			ctx.beginPath();
-			ctx.arc(player.x / 2, player.y / 2, gridSize / 2 - 5, 0, 2*Math.PI);
+			ctx.arc(player.x, player.y, gridSize / 2, 0, 2*Math.PI);
 			ctx.fill();
+			//highlight player
+			ctx.lineWidth = 2;
+			ctx.strokeStyle = '#FF8000';
+			ctx.stroke();
 		}
 		else {
 			console.log("Fiddlesticks -- no player instance! Check level for startX and startY?");
 		}
-	}
-
-	var physics = function() {
-		// draw(); //mhm wtf
 	}
 
 	var cyclePlayer = function() {
