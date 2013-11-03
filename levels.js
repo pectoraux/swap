@@ -6,6 +6,7 @@ Key:
 3 - red tile (lava)
 
 -1 - normal player
+-2 - moves to the right
 */
 
 var levels = [ 
