@@ -134,13 +134,9 @@ var world = function() {
 		for(var i=0; i<aiEntities.length; i++) {
 			aiEntities[i].onUpdate(gridSize);
 			var touchingTiles = collide(aiEntities[i]).tiles;
-			for(var i=0; i<touchingTiles.length; i++) {
-				if(touchingTiles[i].id==1) {
-					aiEntities[i].x = prevX;
-					aiEntities[i].y = prevY;
-				}
-				else 
-					touchingTiles[i].onCollide(aiEntities[i]);
+			for(var j=0; j<touchingTiles.length; j++) {
+				aiEntities[i].onCollide(touchingTiles[j]);
+				touchingTiles[j].onCollide(aiEntities[i]);
 			}
 		}
 
@@ -150,8 +146,9 @@ var world = function() {
 				player.x = prevX;
 				player.y = prevY;
 			}
-			else 
+			else {
 				touchingTiles[i].onCollide(player);
+			}
 		}
 	}
 
@@ -209,6 +206,14 @@ var world = function() {
 		}
 		gridX = (ai.x - gridSize/2)/gridSize;
 		gridY = (ai.y - gridSize/2)/gridSize;
+		if(gridX<0)
+			gridX=0;
+		if(gridX>sizeX-1)
+			gridX=sizeX-1;
+		if(gridY<0)
+			gridY=0;
+		if(gridY>sizeY-1)
+			gridY=sizeY-1;
 		touching.tiles.push(floor[Math.floor(gridY)][Math.floor(gridX)])
 
 		if(ai.x%gridSize!=0) 
