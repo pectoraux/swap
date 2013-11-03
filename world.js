@@ -9,14 +9,37 @@ var world = function() {
 	var width, height, sizeX, sizeY;
 	var gridSize;
 
+	var nextLevel;
+	var canvas;
+	var tip;
+
+	var intervalId;
+
 	var fps = 30;
 
 	var hitSpace = false;
 
-	var initLevel = function(level, canvasId) {
+	var init = function(level, canvasId, tipId) {
+		canvas = document.getElementById(canvasId);
+		tip = document.getElementById(tipId);
+		initLevel(level);
+	}
+
+	var initLevel = function(level) {
+		if(level==levels.length) {
+			alert("That's all folks!");
+			clearInterval(intervalId);
+			return;
+		}
+
 		// inits level, restarts game
-		var canvas = document.getElementById(canvasId);
+		if(intervalId)
+			clearInterval(intervalId); //makes sure we don't run dual loops
+		nextLevel = level+1;
+
+		tip.innerHTML = levels[level].tip;
 		input.init();
+		console.log(input.keys);
 		if (canvas.getContext) {
 			ctx = canvas.getContext("2d");
 			width = canvas.width;
@@ -28,12 +51,19 @@ var world = function() {
 			loadLevel(level);
 
 			intervalId = setInterval(run, 1000 / fps);
+			run();
 		}
+	}
+
+	var victory = function() {
+		alert("You win!");
+		initLevel(nextLevel);
 	}
 
 	var loadLevel = function(index) {
 		// loads level from level file
 		var currentLevel = levels[index];
+		floor.length = 0;
 		for (var y = 0; y < currentLevel.sizeY; y++) {
 			floor.push([]);
 			for (var x = 0; x < currentLevel.sizeX; x++) {
@@ -59,6 +89,8 @@ var world = function() {
 
 	var update = function() {
 		var keyUp = true;
+		var prevX = player.x;
+		var prevY = player.y;
 		trail.push([player.x, player.y]);
 		if(input.keys[input.right]) {
 			keyUp = false;
@@ -89,6 +121,15 @@ var world = function() {
 		if (keyUp) {
 			toGrid(player);
 		}
+		var touchingTiles = collide(player).tiles;
+		for(var i=0; i<touchingTiles.length; i++) {
+			if(touchingTiles[i].id==1) {
+				player.x = prevX;
+				player.y = prevY;
+			}
+			else 
+				touchingTiles[i].onCollide(player);
+		}
 	}
 
 	var draw = function() {
@@ -114,7 +155,7 @@ var world = function() {
 			ctx.beginPath();
 			ctx.arc(trail[i][0], trail[i][1], gridSize / 2 - (trail.length - i), 0, 2*Math.PI);
 			ctx.fill();
-			if (trail.length >= 7)	trail.shift();
+			if (trail.length >= 3)	trail.shift();
 		}
 		ctx.globalAlpha = 1;
 		if (player) {
@@ -134,13 +175,27 @@ var world = function() {
 
 	var toGrid = function(ai) { // rounds funny, seems to round down
 		// perhaps due to the fact that circle is drawn from center of grid?
-		ai.x = (Math.round(ai.x / gridSize) - 0.5) * gridSize;
-		ai.y = (Math.round(ai.y / gridSize) - 0.5) * gridSize; 
+		// ai.x = (Math.round(ai.x / gridSize) - 0.5) * gridSize;
+		// ai.y = (Math.round(ai.y / gridSize) - 0.5) * gridSize; 
 	}
 
-	var collide = function() { // implement me!
-		// should return null if nothing is in way, otherwise should return obj in way
-		return null;
+	var collide = function(ai) { 
+		var touching = {
+			tiles: [],
+			ai: [],
+		}
+		gridX = (ai.x - gridSize/2)/gridSize;
+		gridY = (ai.y - gridSize/2)/gridSize;
+		touching.tiles.push(floor[Math.floor(gridY)][Math.floor(gridX)])
+
+		if(ai.x%gridSize!=0) 
+			touching.tiles.push(floor[Math.floor(gridY)][Math.ceil(gridX)])
+		if(ai.y%gridSize!=0)
+			touching.tiles.push(floor[Math.ceil(gridY)][Math.floor(gridX)])
+		if(ai.x%gridSize!=0 && ai.y%gridSize!=0)
+			touching.tiles.push(floor[Math.ceil(gridY)][Math.ceil(gridX)])
+		
+		return touching;
 	}
 
 	var cyclePlayer = function() {
@@ -149,6 +204,7 @@ var world = function() {
 	}
 
 	return {
-		initLevel: initLevel,
+		init: init,
+		victory: victory,
 	}
 }();

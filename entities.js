@@ -24,13 +24,21 @@ var Tile = function(id) {
 // var Tile = function(color) {
 	//this doesn't need positional stuff because it's in an array
 	// this.behavior = floorBehavior[color]; to stupid to implement yet
-
 	// this.color = color;
 	this.id = id; // i think numbers will be nicer than colors because we can more easily change colors
 
 	switch(this.id) {
-		case 1: this.color = "grey"; break;
-		default: this.color = "white"; 
+		case 1: 
+			this.color = "grey";
+			this.onCollide = function(ai) {};
+		break;
+		case 2:
+			this.color="green";
+			this.onCollide = function(ai) {
+				world.victory();
+			};
+			break;
+		default: this.color = "white"; this.onCollide = function(ai){}; 
 	}
 }
 

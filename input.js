@@ -6,10 +6,12 @@ var input = {
 	space: 32,
 	keys: [],
 	init: function() {
+		input.keys.length = 0;
 		window.addEventListener('keydown',this.keyDown,false);
 		window.addEventListener('keyup',this.keyUp,false);
-		for(var i=0; i<128; i++)
+		for(var i=0; i<128; i++) {
 			input.keys.push(false);
+		}
 	},
 	keyDown: function(e) {
 		var code = e.keyCode;
