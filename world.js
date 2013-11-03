@@ -101,9 +101,20 @@ var world = function() {
 
 	var update = function() {
 		var keyUp = true;
+		trail.push([player.x, player.y]);
+		if(input.keys[input.space]==false && hitSpace==true) {
+			cyclePlayer();
+		}
+		if(input.keys[input.space]) {
+			keyUp = false;
+			hitSpace = true;
+		}
+		else { 
+			hitSpace = false;
+		}
 		var prevX = player.x;
 		var prevY = player.y;
-		trail.push([player.x, player.y]);
+
 		if(input.keys[input.right]) {
 			keyUp = false;
 			vx = gridSize / 10;
@@ -122,16 +133,7 @@ var world = function() {
 			keyUp = false;
 			vy = gridSize/10;
 		}
-		if(input.keys[input.space]==false && hitSpace==true) {
-			cyclePlayer();
-		}
-		if(input.keys[input.space]) {
-			keyUp = false;
-			hitSpace = true;
-		}
-		else { 
-			hitSpace = false;
-		}
+
 		if (keyUp) {
 			// toGrid(player);
 			vx = vx / friction; 
