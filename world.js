@@ -106,21 +106,23 @@ var world = function() {
 		trail.push([player.x, player.y]);
 		if(input.keys[input.right]) {
 			keyUp = false;
-			vx = gridSize / 10;
+			// vx = gridSize / 10;
 			// for fluid acceleration
-			// if (vx <= gridSize / 10) vx += (vx + 1) / 3;
+			if (vx <= gridSize / 10) vx += (Math.abs(vx) + 1) / friction;
 		}
-		if(input.keys[input.left]) {
+		else if(input.keys[input.left]) {
 			keyUp = false;
-			vx = -gridSize/10;
+			if (vx >= -gridSize / 10) vx -= (Math.abs(vx) + 1) / friction;
 		}
 		if(input.keys[input.up]) {
 			keyUp = false;
-			vy = -gridSize/10;
+			if (vy >= -gridSize / 10) vy -= (Math.abs(vy) + 1) / friction;
+			//vy = -gridSize/10;
 		}
-		if(input.keys[input.down]) {
+		else if(input.keys[input.down]) {
 			keyUp = false;
-			vy = gridSize/10;
+			// vy = gridSize/10;
+			if (vy <= gridSize / 10) vy += (Math.abs(vy) + 1) / friction;
 		}
 		if(input.keys[input.space]==false && hitSpace==true) {
 			cyclePlayer();
@@ -188,7 +190,7 @@ var world = function() {
 			ctx.beginPath();
 			ctx.arc(trail[i][0], trail[i][1], gridSize / 2 - (trail.length - i), 0, 2*Math.PI);
 			ctx.fill();
-			if (trail.length >= 4)	trail.shift();
+			if (trail.length >= 5)	trail.shift();
 		}
 		ctx.globalAlpha = 1;
 		if (player) {
