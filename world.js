@@ -4,65 +4,79 @@ var world = function() {
 	var aiEntities = [];
 	var player;
 
-	var floor = [[]];
+	var floor = [];
 	var width, height;
+	var gridSize = 30;
 
 	var initLevel = function(level, canvasId) {
-		//restarts game
+		// inits level, restarts game
 		var canvas = document.getElementById(canvasId);
-		c = canvas.getContext("2d");
-		var width = canvas.width;
-		var height = canvas.height
-		loadLevel(level);
-		draw();
+		if (canvas.getContext) {
+			ctx = canvas.getContext("2d");
+			var width = canvas.width;
+			var height = canvas.height
+			loadLevel(level);
+			draw(ctx);
+		}
 	}
 
-	var loadLevel = function(index) {
-		//loads level from level file
-		var curLevel = levels[index];
-
-		for(var x=0; x<curLevel.size; x++) {
-			for(var y=0; y<curLevel.size; y++) {
-				if(curLevel.tiles[x][y]<1)
-					floor[x][y] = getTile(curLevel.tiles[x][y])
+var loadLevel = function(index) {
+		// loads level from level file
+		var currentLevel = levels[index];
+		for (var y = 0; y < currentLevel.sizeY; y++) {
+			floor.push([]);
+			for (var x = 0; x < currentLevel.sizeX; x++) {
+				if (currentLevel.tiles[y][x] >= 0) {
+					floor[y].push(new Tile(currentLevel.tiles[y][x]));
+				}
 				else {
-					if(x==curLevel.startX && y==curLevel.startY)
-						player = getAI(x, y, curLevel.tiles[x][y]);
-					else
-						aiEntities.push(getAI(x, y, curLevel.tiles[x][y]))
+					floor[y].push(new Tile(0));	
+					if(x==currentLevel.startX && y==currentLevel.startY)
+						player = new AI(x, y, currentLevel.tiles[y][x]);
+					else {
+						aiEntities.push(new AI(x, y, currentLevel.tiles[y][x]));
+					}
 				}
 			}
 		}
 	}
 
-	var getTile = function(id) {
-		switch(id) {
-			case 0:
-				return new Tile("white");
-			case 1:
-				return new Tile("black");
-		}
+	var update = function() {
+
 	}
 
-	var getAI = function(x, y, id) {
-		switch(id) {
-			case -1:
-				return new AI(x, y, "black")
-			case -2:
-				return new AI(x, y, "green")
-		}
-	}
-
-	var draw = function() {
+	var draw = function(ctx) {
 		//iterate through and draw tiles first, then entities
-		physics(); //yes please recursion
+		// physics(); //yes please recursion
+		update();
+		for (var y = 0; y < height; y+=gridSize) {
+			for (var x = 0; x < width; x+=gridSize) {
+				ctx.fillStyle = floor[y][x].color;
+				ctx.fillRect(x, y, x + gridSize, y + gridSize);
+			}
+		}
+		for (var i = 0; i < aiEntities.size; i++) {
+			ctx.fillStyle = aiEntities[i].color;
+			ctx.beginPath();
+			ctx.arc(aiEntities[i].x / 2, aiEntities.y / 2, gridSize / 2 - 5, 0, 2*Math.PI);
+			ctx.fill();
+		}
+		if (typeof player != "undefined") {
+			ctx.fillStyle = player.color;
+			ctx.beginPath();
+			ctx.arc(player.x / 2, player.y / 2, gridSize / 2 - 5, 0, 2*Math.PI);
+			ctx.fill();
+		}
+		else {
+			console.log("Fiddlesticks -- no player instance! Check level for startX and startY?");
+		}
 	}
 
 	var physics = function() {
-		draw(); //mhm
+		// draw(); //mhm wtf
 	}
 
-	var swapPlayer = function() {
+	var cyclePlayer = function() {
 		aiEntities.push(player);
 		player = aiEntities.shift();
 	}
