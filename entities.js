@@ -15,8 +15,16 @@ var AI = function(x, y, id) {
 	
 	this.id = id;
 	switch(this.id) {
-		case -1: this.color = "rgba(0, 10, 200, 0.4)";break;
-		default: this.color = "white";
+		case -1: this.color = "rgba(0, 10, 200, 0.4)";
+			this.onUpdate = function(gridSize) {
+			}
+			break; 
+		case -2: this.color = "rgba(0, 10, 200, 0.4)";
+			this.onUpdate = function(gridSize) {
+				this.x += gridSize/10;
+			}
+			break;
+		default: this.color = "white"; this.onUpdate = function(g){};
 	}
 }
 
@@ -36,6 +44,12 @@ var Tile = function(id) {
 			this.color="green";
 			this.onCollide = function(ai) {
 				world.victory();
+			};
+			break;
+		case 3:
+			this.color="red";
+			this.onCollide = function(ai) {
+				world.death();
 			};
 			break;
 		default: this.color = "white"; this.onCollide = function(ai){}; 

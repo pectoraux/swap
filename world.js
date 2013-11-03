@@ -9,7 +9,7 @@ var world = function() {
 	var width, height, sizeX, sizeY;
 	var gridSize;
 
-	var nextLevel;
+	var curLevel;
 	var canvas;
 	var tip;
 
@@ -26,6 +26,8 @@ var world = function() {
 	}
 
 	var initLevel = function(level) {
+		curLevel = level;
+
 		if(level==levels.length) {
 			alert("That's all folks!");
 			clearInterval(intervalId);
@@ -44,9 +46,10 @@ var world = function() {
 			ctx = canvas.getContext("2d");
 			width = canvas.width;
 			height = canvas.height
+			ctx.clearRect(0, 0, width, height);
 			sizeX = levels[level].sizeX;
 			sizeY = levels[level].sizeY;
-			gridSize = width/sizeX;
+			gridSize = width/sizeX < height/sizeY ? width/sizeX : height/sizeY;
 			console.log(gridSize);
 			loadLevel(level);
 
@@ -57,13 +60,19 @@ var world = function() {
 
 	var victory = function() {
 		alert("You win!");
-		initLevel(nextLevel);
+		initLevel(curLevel+1);
+	}
+
+	var death = function() {
+		alert("You died! :O");
+		initLevel(curLevel);
 	}
 
 	var loadLevel = function(index) {
 		// loads level from level file
 		var currentLevel = levels[index];
 		floor.length = 0;
+		aiEntities.length = 0;
 		for (var y = 0; y < currentLevel.sizeY; y++) {
 			floor.push([]);
 			for (var x = 0; x < currentLevel.sizeX; x++) {
@@ -121,6 +130,20 @@ var world = function() {
 		if (keyUp) {
 			toGrid(player);
 		}
+
+		for(var i=0; i<aiEntities.length; i++) {
+			aiEntities[i].onUpdate(gridSize);
+			var touchingTiles = collide(aiEntities[i]).tiles;
+			for(var i=0; i<touchingTiles.length; i++) {
+				if(touchingTiles[i].id==1) {
+					aiEntities[i].x = prevX;
+					aiEntities[i].y = prevY;
+				}
+				else 
+					touchingTiles[i].onCollide(aiEntities[i]);
+			}
+		}
+
 		var touchingTiles = collide(player).tiles;
 		for(var i=0; i<touchingTiles.length; i++) {
 			if(touchingTiles[i].id==1) {
@@ -206,5 +229,6 @@ var world = function() {
 	return {
 		init: init,
 		victory: victory,
+		death: death,
 	}
 }();
