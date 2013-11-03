@@ -9,7 +9,6 @@
 var AI = function(x, y, id) {
    this.x = x;
    this.y = y;
-
 	// this.behavior = aiBehavior[color]; //can you help me think of a sexy and extensible way to represent behavior?
 	// this.color = color;
 	
