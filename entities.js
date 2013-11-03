@@ -15,7 +15,7 @@ var AI = function(x, y, id) {
 	
 	this.id = id;
 	switch(this.id) {
-		case -1: this.color = "blue";break;
+		case -1: this.color = "rgba(0, 10, 200, 0.4)";break;
 		default: this.color = "white";
 	}
 }
@@ -29,7 +29,7 @@ var Tile = function(id) {
 	this.id = id; // i think numbers will be nicer than colors because we can more easily change colors
 
 	switch(this.id) {
-		case 1: this.color = "black"; break;
+		case 1: this.color = "grey"; break;
 		default: this.color = "white"; 
 	}
 }

@@ -21,5 +21,5 @@ var input = {
 		input.keys[code] = false;
 		return false;
 	}
-	
 }
+
