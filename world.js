@@ -29,8 +29,10 @@ var world = function() {
 	}
 
 	var initLevel = function(level) {
+		vx = 0;
+		vy = 0;
 		curLevel = level;
-
+		trail.length = 0;
 		if(level==levels.length) {
 			alert("That's all folks!");
 			clearInterval(intervalId);
@@ -142,8 +144,6 @@ var world = function() {
 			vy = vy / friction; 
 		}
 
-		player.x += vx;
-		player.y += vy;
 
 		for(var i=0; i<aiEntities.length; i++) {
 			aiEntities[i].onUpdate(gridSize);
@@ -155,15 +155,24 @@ var world = function() {
 		}
 
 		var touchingTiles = collide(player).tiles;
+		var hitWall = false;
 		for(var i=0; i<touchingTiles.length; i++) {
 			if(touchingTiles[i].id==1) {
 				player.x = prevX;
 				player.y = prevY;
+				hitWall = true;
 			}
 			else {
 				touchingTiles[i].onCollide(player);
 			}
 		}
+		if(hitWall) {
+			vx *= -1;
+			vy *= -1;
+		}
+		player.x += vx;
+		player.y += vy;
+
 	}
 
 	var draw = function() {
