@@ -98,12 +98,14 @@ var world = function() {
 
 	var run = function() {
 		update();
-		draw();
+		draw(ctx, trail, player, aiEntities, floor, gridSize);
 	}	
 
 	var update = function() {
-		var keyUp = true;
 		trail.push([player.x, player.y]);
+		if (trail.length >= 5) trail.shift();
+
+		var keyUp = true;
 		if(input.keys[input.space]==false && hitSpace==true) {
 			cyclePlayer();
 		}
@@ -114,35 +116,34 @@ var world = function() {
 		else { 
 			hitSpace = false;
 		}
-		var prevX = player.x;
-		var prevY = player.y;
 
-		if(input.keys[input.right]) {
-			keyUp = false;
-			// vx = gridSize / 10;
-			// for fluid acceleration
-			if (vx <= gridSize / 10) vx += (Math.abs(vx) + 1) / friction;
-		}
-		else if(input.keys[input.left]) {
-			keyUp = false;
-			if (vx >= -gridSize / 10) vx -= (Math.abs(vx) + 1) / friction;
-		}
-		if(input.keys[input.up]) {
-			keyUp = false;
-			if (vy >= -gridSize / 10) vy -= (Math.abs(vy) + 1) / friction;
-			//vy = -gridSize/10;
-		}
-		else if(input.keys[input.down]) {
-			keyUp = false;
-			// vy = gridSize/10;
-			if (vy <= gridSize / 10) vy += (Math.abs(vy) + 1) / friction;
+		if(!hitWall) { //don't be that guy who drifts into the wall
+			if(input.keys[input.right]) {
+				keyUp = false;
+				// vx = gridSize / 10;
+				// for fluid acceleration
+				if (vx <= gridSize / 10) vx += (Math.abs(vx) + 1) / friction;
+			}
+			else if(input.keys[input.left]) {
+				keyUp = false;
+				if (vx >= -gridSize / 10) vx -= (Math.abs(vx) + 1) / friction;
+			}
+			if(input.keys[input.up]) {
+				keyUp = false;
+				if (vy >= -gridSize / 10) vy -= (Math.abs(vy) + 1) / friction;
+				//vy = -gridSize/10;
+			}
+			else if(input.keys[input.down]) {
+				keyUp = false;
+				// vy = gridSize/10;
+				if (vy <= gridSize / 10) vy += (Math.abs(vy) + 1) / friction;
+			}
+			if (keyUp) {
+				vx = vx / friction; 
+				vy = vy / friction; 
+			}
 		}
 
-		if (keyUp) {
-			// toGrid(player);
-			vx = vx / friction; 
-			vy = vy / friction; 
-		}
 
 
 		for(var i=0; i<aiEntities.length; i++) {
@@ -154,12 +155,11 @@ var world = function() {
 			}
 		}
 
+
 		var touchingTiles = collide(player).tiles;
 		var hitWall = false;
 		for(var i=0; i<touchingTiles.length; i++) {
 			if(touchingTiles[i].id==1) {
-				player.x = prevX;
-				player.y = prevY;
 				hitWall = true;
 			}
 			else {
@@ -169,88 +169,75 @@ var world = function() {
 		if(hitWall) {
 			vx *= -1;
 			vy *= -1;
+			player.x = trail[2][0] || player.x;
+			player.y = trail[2][1] || player.y;
 		}
 		player.x += vx;
 		player.y += vy;
-
 	}
 
-	var draw = function() {
-		//iterate through and draw tiles first, then entities
-		ctx.globalAlpha = 1;
-		for (var y = 0; y < sizeY; y++) {
-			for (var x = 0; x < sizeX; x++) {
-				ctx.fillStyle = floor[y][x].color;
-				ctx.fillRect(x*gridSize, y*gridSize, gridSize, gridSize);
-			}
-		}
-		for (var i = 0; i < aiEntities.length; i++) {
-			ctx.globalAlpha = 0.65;
-			ctx.fillStyle = aiEntities[i].color;
-			ctx.beginPath();
-			ctx.arc(aiEntities[i].x, aiEntities[i].y, gridSize / 2, 0, 2*Math.PI);
-			ctx.fill();
-		}
-		ctx.globalAlpha = 1;
-		for (var i = 0; i < trail.length; i++) { 
-			ctx.globalAlpha = 1 - ((trail.length - i) / trail.length);		
-			ctx.fillStyle = player.color;
-			ctx.beginPath();
-			ctx.arc(trail[i][0], trail[i][1], gridSize / 2 - (trail.length - i), 0, 2*Math.PI);
-			ctx.fill();
-			if (trail.length >= 5)	trail.shift();
-		}
-		ctx.globalAlpha = 1;
-		if (player) {
-			ctx.fillStyle = player.color;
-			ctx.beginPath();
-			ctx.arc(player.x, player.y, gridSize / 2, 0, 2*Math.PI);
-			ctx.fill();
-			//highlight player
-			// ctx.lineWidth = 3;
-			// ctx.strokeStyle = '#FF8000';
-			// ctx.stroke();
-		}
-		else {
-			console.log("Fiddlesticks -- no player instance! Check level for startX and startY?");
-		}
-	}
-
-	var toGrid = function(ai) { // rounds funny, seems to round down
+	// var toGrid = function(ai) { // rounds funny, seems to round down
 		// perhaps due to the fact that circle is drawn from center of grid?
 		// ai.x = (Math.round(ai.x / gridSize) - 0.5) * gridSize;
 		// ai.y = (Math.round(ai.y / gridSize) - 0.5) * gridSize; 
-	}
+	// }
 
-	var collide = function(ai) { 
+	var collide = function(ai) {
 		var touching = {
 			tiles: [],
-			ai: [],
 		}
-		gridX = (ai.x - gridSize/2)/gridSize;
-		gridY = (ai.y - gridSize/2)/gridSize;
-		if(gridX<0)
-			gridX=0;
-		if(gridX>sizeX-1)
-			gridX=sizeX-1;
-		if(gridY<0)
-			gridY=0;
-		if(gridY>sizeY-1)
-			gridY=sizeY-1;
-		touching.tiles.push(floor[Math.floor(gridY)][Math.floor(gridX)])
+		var x = (ai.x - gridSize/2) + 5;
+		var y = (ai.y - gridSize/2) + 5;
 
-		if(ai.x%gridSize!=0) 
-			touching.tiles.push(floor[Math.floor(gridY)][Math.ceil(gridX)])
-		if(ai.y%gridSize!=0)
-			touching.tiles.push(floor[Math.ceil(gridY)][Math.floor(gridX)])
-		if(ai.x%gridSize!=0 && ai.y%gridSize!=0)
-			touching.tiles.push(floor[Math.ceil(gridY)][Math.ceil(gridX)])
-		
+		addToArray(touching.tiles, floor[coordToGrid(x, y).y][coordToGrid(x, y).x]);
+		addToArray(touching.tiles, floor[coordToGrid(x+gridSize-10, y).y][coordToGrid(x+gridSize-10, y).x]);
+		addToArray(touching.tiles, floor[coordToGrid(x, y+gridSize-10).y][coordToGrid(x, y+gridSize-10).x]);
+		addToArray(touching.tiles, floor[coordToGrid(x+gridSize-10, y+gridSize-10).y][coordToGrid(x+gridSize-10, y+gridSize-10).x]);
 		return touching;
+	}	
+
+	var coordToGrid = function(x, y) {
+		var grid = {};
+		grid.x = Math.round((x-gridSize/2)/gridSize);
+		grid.y = Math.round((y-gridSize/2)/gridSize);
+
+		return grid;
 	}
 
+	var addToArray = function(array, obj) {
+		if(array.indexOf(obj)==-1) 
+			array.push(obj);
+	}
+
+	// var collide = function(ai) { 
+	// 	var touching = {
+	// 		tiles: [],
+	// 		ai: [],
+	// 	}
+	// 	var gridX = (ai.x - gridSize/2+5)/gridSize;
+	// 	var gridY = (ai.y - gridSize/2+5)/gridSize;
+	// 	if(gridX<0)
+	// 		gridX=0;
+	// 	if(gridX>sizeX-1)
+	// 		gridX=sizeX-1;
+	// 	if(gridY<0)
+	// 		gridY=0;
+	// 	if(gridY>sizeY-1)
+	// 		gridY=sizeY-1;
+	// 	touching.tiles.push(floor[Math.floor(gridY)][Math.floor(gridX)])
+
+	// 	if(ai.x%gridSize!=0) 
+	// 		touching.tiles.push(floor[Math.floor(gridY)][Math.ceil(gridX)])
+	// 	if(ai.y%gridSize!=0)
+	// 		touching.tiles.push(floor[Math.ceil(gridY)][Math.floor(gridX)])
+	// 	if(ai.x%gridSize!=0 && ai.y%gridSize!=0)
+	// 		touching.tiles.push(floor[Math.ceil(gridY)][Math.ceil(gridX)])
+		
+	// 	return touching;
+	// }
+
 	var cyclePlayer = function() {
-		aiEntities.push(player);
+		aiEntities.push(player);		
 		player = aiEntities.shift();
 	}
 
