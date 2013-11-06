@@ -1,6 +1,4 @@
-var world = function() {	
-	var ctx;
-
+var world = function() {
 	var aiEntities = [];
 	var trail = [];
 	var player;
@@ -9,22 +7,15 @@ var world = function() {
 	var friction = 1.25;
 
 	var floor = [];
-	var width, height, sizeX, sizeY;
 	var gridSize;
 
 	var curLevel;
-	var canvas;
-	var tip;
-
 	var intervalId;
-
 	var fps = 30;
-
 	var hitSpace = false;
 
 	var init = function(level, canvasId, tipId) {
-		canvas = document.getElementById(canvasId);
-		tip = document.getElementById(tipId);
+		renderer.init(canvasId, tipId);
 		initLevel(level);
 	}
 
@@ -44,23 +35,13 @@ var world = function() {
 			clearInterval(intervalId); //makes sure we don't run dual loops
 		nextLevel = level+1;
 
-		tip.innerHTML = levels[level].tip;
 		input.init();
-		console.log(input.keys);
-		if (canvas.getContext) {
-			ctx = canvas.getContext("2d");
-			width = canvas.width;
-			height = canvas.height
-			ctx.clearRect(0, 0, width, height);
-			sizeX = levels[level].sizeX;
-			sizeY = levels[level].sizeY;
-			gridSize = width/sizeX < height/sizeY ? width/sizeX : height/sizeY;
-			console.log(gridSize);
-			loadLevel(level);
+		renderer.initLevel(levels[level]);
+		gridSize = renderer.gridSize;
+		loadLevel(level);
 
-			intervalId = setInterval(run, 1000 / fps);
-			run();
-		}
+		intervalId = setInterval(run, 1000 / fps);
+		run();
 	}
 
 	var victory = function() {
@@ -70,6 +51,7 @@ var world = function() {
 
 	var death = function() {
 		alert("You died! :O");
+		clearInterval(intervalId); 
 		initLevel(curLevel);
 	}
 
@@ -98,7 +80,7 @@ var world = function() {
 
 	var run = function() {
 		update();
-		draw(ctx, trail, player, aiEntities, floor, gridSize);
+		renderer.draw(trail, player, aiEntities, floor);
 	}	
 
 	var update = function() {
@@ -151,7 +133,8 @@ var world = function() {
 			var touchingTiles = collide(aiEntities[i]).tiles;
 			for(var j=0; j<touchingTiles.length; j++) {
 				aiEntities[i].onCollide(touchingTiles[j]);
-				touchingTiles[j].onCollide(aiEntities[i]);
+				if(touchingTiles[j].onCollide(aiEntities[i]))
+					break;
 			}
 		}
 
@@ -200,7 +183,6 @@ var world = function() {
 		var grid = {};
 		grid.x = Math.round((x-gridSize/2)/gridSize);
 		grid.y = Math.round((y-gridSize/2)/gridSize);
-
 		return grid;
 	}
 
