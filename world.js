@@ -1,14 +1,7 @@
 var world = function() {
 	var aiEntities = [];
-	var trail = [];
-	var player;
-	var vx = 0;
-	var vy = 0;
-	var friction = 1.25;
-
 	var floor = [];
 	var gridSize;
-
 	var curLevel;
 	var intervalId;
 	var fps = 30;
@@ -20,23 +13,19 @@ var world = function() {
 	}
 
 	var initLevel = function(level) {
-		vx = 0;
-		vy = 0;
+		if(intervalId)
+			clearInterval(intervalId); //makes sure we don't run dual loops
+
 		curLevel = level;
-		trail.length = 0;
 		if(level==levels.length) {
 			alert("That's all folks!");
-			clearInterval(intervalId);
 			return;
 		}
 
-		// inits level, restarts game
-		if(intervalId)
-			clearInterval(intervalId); //makes sure we don't run dual loops
-		nextLevel = level+1;
-
 		input.init();
 		renderer.initLevel(levels[level]);
+		player.init();
+		
 		gridSize = renderer.gridSize;
 		loadLevel(level);
 
@@ -64,72 +53,49 @@ var world = function() {
 			floor.push([]);
 			for (var x = 0; x < currentLevel.sizeX; x++) {
 				if (currentLevel.tiles[y][x] >= 0) {
-					floor[y].push(new Tile(currentLevel.tiles[y][x]));
+					floor[y].push(getTile(currentLevel.tiles[y][x]));
 				}
 				else {
-					floor[y].push(new Tile(0));	
+					floor[y].push(getTile(0));	
 					if(x==currentLevel.startX && y==currentLevel.startY)
-						player = new AI(x*gridSize+gridSize/2, y*gridSize+gridSize/2, currentLevel.tiles[y][x]);
+						player.setAI(getAI(x*gridSize+gridSize/2, y*gridSize+gridSize/2, currentLevel.tiles[y][x]));
 					else {
-						aiEntities.push(new AI(x*gridSize+gridSize/2, y*gridSize+gridSize/2, currentLevel.tiles[y][x]));
+						aiEntities.push(getAI(x*gridSize+gridSize/2, y*gridSize+gridSize/2, currentLevel.tiles[y][x]));
 					}
 				}
 			}
 		}
+		console.log(aiEntities);
 	}
 
 	var run = function() {
 		update();
-		renderer.draw(trail, player, aiEntities, floor);
+		renderer.draw(aiEntities, floor);
 	}	
 
 	var update = function() {
-		trail.push([player.x, player.y]);
-		if (trail.length >= 5) trail.shift();
-
-		var keyUp = true;
+		//update player and player collision
+		player.update(gridSize);
 		if(input.keys[input.space]==false && hitSpace==true) {
 			cyclePlayer();
 		}
-		if(input.keys[input.space]) {
-			keyUp = false;
-			hitSpace = true;
-		}
-		else { 
-			hitSpace = false;
-		}
-
-		if(!hitWall) { //don't be that guy who drifts into the wall
-			if(input.keys[input.right]) {
-				keyUp = false;
-				// vx = gridSize / 10;
-				// for fluid acceleration
-				if (vx <= gridSize / 10) vx += (Math.abs(vx) + 1) / friction;
+		hitSpace = input.keys[input.space];
+		var touchingTiles = collide(player).tiles;
+		var hitWall = false;
+		for(var i=0; i<touchingTiles.length; i++) {
+			if(touchingTiles[i].blocksMovement) {
+				hitWall = true;
 			}
-			else if(input.keys[input.left]) {
-				keyUp = false;
-				if (vx >= -gridSize / 10) vx -= (Math.abs(vx) + 1) / friction;
-			}
-			if(input.keys[input.up]) {
-				keyUp = false;
-				if (vy >= -gridSize / 10) vy -= (Math.abs(vy) + 1) / friction;
-				//vy = -gridSize/10;
-			}
-			else if(input.keys[input.down]) {
-				keyUp = false;
-				// vy = gridSize/10;
-				if (vy <= gridSize / 10) vy += (Math.abs(vy) + 1) / friction;
-			}
-			if (keyUp) {
-				vx = vx / friction; 
-				vy = vy / friction; 
+			else {
+				touchingTiles[i].onCollide(player);
 			}
 		}
+		if(hitWall) 
+			player.hitWall();
 
-
-
+		//update AIs and AI collisions
 		for(var i=0; i<aiEntities.length; i++) {
-			aiEntities[i].onUpdate(gridSize);
+			aiEntities[i].update(gridSize);
 			var touchingTiles = collide(aiEntities[i]).tiles;
 			for(var j=0; j<touchingTiles.length; j++) {
 				aiEntities[i].onCollide(touchingTiles[j]);
@@ -138,32 +104,7 @@ var world = function() {
 			}
 		}
 
-
-		var touchingTiles = collide(player).tiles;
-		var hitWall = false;
-		for(var i=0; i<touchingTiles.length; i++) {
-			if(touchingTiles[i].id==1) {
-				hitWall = true;
-			}
-			else {
-				touchingTiles[i].onCollide(player);
-			}
-		}
-		if(hitWall) {
-			vx *= -1;
-			vy *= -1;
-			player.x = trail[2][0] || player.x;
-			player.y = trail[2][1] || player.y;
-		}
-		player.x += vx;
-		player.y += vy;
 	}
-
-	// var toGrid = function(ai) { // rounds funny, seems to round down
-		// perhaps due to the fact that circle is drawn from center of grid?
-		// ai.x = (Math.round(ai.x / gridSize) - 0.5) * gridSize;
-		// ai.y = (Math.round(ai.y / gridSize) - 0.5) * gridSize; 
-	// }
 
 	var collide = function(ai) {
 		var touching = {
@@ -171,7 +112,6 @@ var world = function() {
 		}
 		var x = (ai.x - gridSize/2) + 5;
 		var y = (ai.y - gridSize/2) + 5;
-
 		addToArray(touching.tiles, floor[coordToGrid(x, y).y][coordToGrid(x, y).x]);
 		addToArray(touching.tiles, floor[coordToGrid(x+gridSize-10, y).y][coordToGrid(x+gridSize-10, y).x]);
 		addToArray(touching.tiles, floor[coordToGrid(x, y+gridSize-10).y][coordToGrid(x, y+gridSize-10).x]);
@@ -191,36 +131,9 @@ var world = function() {
 			array.push(obj);
 	}
 
-	// var collide = function(ai) { 
-	// 	var touching = {
-	// 		tiles: [],
-	// 		ai: [],
-	// 	}
-	// 	var gridX = (ai.x - gridSize/2+5)/gridSize;
-	// 	var gridY = (ai.y - gridSize/2+5)/gridSize;
-	// 	if(gridX<0)
-	// 		gridX=0;
-	// 	if(gridX>sizeX-1)
-	// 		gridX=sizeX-1;
-	// 	if(gridY<0)
-	// 		gridY=0;
-	// 	if(gridY>sizeY-1)
-	// 		gridY=sizeY-1;
-	// 	touching.tiles.push(floor[Math.floor(gridY)][Math.floor(gridX)])
-
-	// 	if(ai.x%gridSize!=0) 
-	// 		touching.tiles.push(floor[Math.floor(gridY)][Math.ceil(gridX)])
-	// 	if(ai.y%gridSize!=0)
-	// 		touching.tiles.push(floor[Math.ceil(gridY)][Math.floor(gridX)])
-	// 	if(ai.x%gridSize!=0 && ai.y%gridSize!=0)
-	// 		touching.tiles.push(floor[Math.ceil(gridY)][Math.ceil(gridX)])
-		
-	// 	return touching;
-	// }
-
 	var cyclePlayer = function() {
-		aiEntities.push(player);		
-		player = aiEntities.shift();
+		aiEntities.push(player.getAI());		
+		player.setAI(aiEntities.shift());
 	}
 
 	return {

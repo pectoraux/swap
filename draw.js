@@ -20,7 +20,7 @@ var renderer = function() {
 		ctx.clearRect(0, 0, width, height);
 	}
 
-	var draw = function(trail, player, aiEntities, floor) {
+	var draw = function(aiEntities, floor) {
 		//iterate through and draw tiles first, then entities
 		var gridSize = this.gridSize;
 		ctx.globalAlpha = 1;
@@ -38,6 +38,7 @@ var renderer = function() {
 			ctx.fill();
 		}
 		ctx.globalAlpha = 1;
+		var trail = player.trail;
 		for (var i = 0; i < trail.length; i++) { 
 			ctx.globalAlpha = 1 - ((trail.length - i) / trail.length);		
 			ctx.fillStyle = player.color;
