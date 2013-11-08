@@ -9,13 +9,13 @@ var player = function() {
 	var init = function() {
 		vx = 0;
 		vy = 0;
-		trail.length = 0;
+		this.trail.length = 0;
 	}
 
 	var setAI = function(ai){
 		this.trail.length = 0;
-		x = ai.x;
-		y = ai.y;
+		this.x = ai.x;
+		this.y = ai.y;
 		this.currentAI = ai;
 	}
 
@@ -25,7 +25,6 @@ var player = function() {
 		return this.currentAI;
 	}
 	var update = function(gridSize) {
-		this.hasHitWall = false;
 		this.trail.push([this.x, this.y]);
 		if (this.trail.length >= 5) this.trail.shift();
 
@@ -55,8 +54,8 @@ var player = function() {
 			vx = vx / friction; 
 			vy = vy / friction; 
 		}
-		x += vx;
-		y += vy;
+		this.x += vx;
+		this.y += vy;
 	}
 
 	var onCollide = function(tile){
@@ -71,6 +70,13 @@ var player = function() {
 		vy *= -1;
 	}
 
+	var getVelocity = function() {
+		return {
+			x:vx,
+			y:vy,
+		}
+	}
+
 	return {
 		x: x,
 		y: y,
@@ -78,6 +84,7 @@ var player = function() {
 		trail: trail,
 		hasHitWall: hasHitWall,
 		onCollide: onCollide,
+		getVelocity: getVelocity,
 		init: init,
 		setAI: setAI,
 		getAI: getAI, 

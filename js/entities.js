@@ -44,44 +44,46 @@ var FollowAI = function(x, y) {
 }
 FollowAI.prototype = Object.create(AI);
 FollowAI.prototype.update = function(gridSize) {
-	var friction = 1.25;
-	var keyUp = true;
-	var prevX, prevY;
-	if(!player.hasHitWall) {
-		prevX = this.x;
-		prevY = this.y;
-		if(input.keys[input.right]) {
-			keyUp = false;
-			// vx = gridSize / 10;
-			// for fluid acceleration
-			if (this.vx <= gridSize / 10) this.vx += (Math.abs(this.vx) + 1) / friction;
-		}
-		else if(input.keys[input.left]) {
-			keyUp = false;
-			if (this.vx >= -gridSize / 10) this.vx -= (Math.abs(this.vx) + 1) / friction;
-		}
-		if(input.keys[input.up]) {
-			keyUp = false;
-			if (this.vy >= -gridSize / 10) this.vy -= (Math.abs(this.vy) + 1) / friction;
-			//vy = -gridSize/10;
-		}
-		else if(input.keys[input.down]) {
-			keyUp = false;
-			// vy = gridSize/10;
-			if (this.vy <= gridSize / 10) this.vy += (Math.abs(this.vy) + 1) / friction;
-		}
-		if (keyUp) {
-			this.vx = this.vx / friction; 
-			this.vy = this.vy / friction; 
-		}
+	this.x += player.getVelocity().x;
+	this.y += player.getVelocity().y;
+	// var friction = 1.25;
+	// var keyUp = true;
+	// var prevX, prevY;
+	// if(!player.hasHitWall) {
+	// 	prevX = this.x;
+	// 	prevY = this.y;
+	// 	if(input.keys[input.right]) {
+	// 		keyUp = false;
+	// 		// vx = gridSize / 10;
+	// 		// for fluid acceleration
+	// 		if (this.vx <= gridSize / 10) this.vx += (Math.abs(this.vx) + 1) / friction;
+	// 	}
+	// 	else if(input.keys[input.left]) {
+	// 		keyUp = false;
+	// 		if (this.vx >= -gridSize / 10) this.vx -= (Math.abs(this.vx) + 1) / friction;
+	// 	}
+	// 	if(input.keys[input.up]) {
+	// 		keyUp = false;
+	// 		if (this.vy >= -gridSize / 10) this.vy -= (Math.abs(this.vy) + 1) / friction;
+	// 		//vy = -gridSize/10;
+	// 	}
+	// 	else if(input.keys[input.down]) {
+	// 		keyUp = false;
+	// 		// vy = gridSize/10;
+	// 		if (this.vy <= gridSize / 10) this.vy += (Math.abs(this.vy) + 1) / friction;
+	// 	}
+	// 	if (keyUp) {
+	// 		this.vx = this.vx / friction; 
+	// 		this.vy = this.vy / friction; 
+	// 	}
 
-		this.x += this.vx;
-		this.y += this.vy;
-	}
-	else {
-		this.vx = 0;
-		this.vy = 0;
-	}
+	// 	this.x += this.vx;
+	// 	this.y += this.vy;
+	// }
+	// else {
+	// 	this.vx = 0;
+	// 	this.vy = 0;
+	// }
 }
 FollowAI.prototype.onCollide = function(tile) {
 	if(tile.blocksMovement)
