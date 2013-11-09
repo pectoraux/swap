@@ -11,6 +11,7 @@ do
    sudo sed -e "s/\${i}/$i/" template.html > "levels/level$i.html"
 done
 
+chmod 777 levels/*
 # git push origin master
 
 # git checkout gh-pages
