@@ -104,6 +104,12 @@ var world = function() {
 			}
 		}
 
+		for(var y=0; y<floor.length; y++) {
+			for(var x=0; x<floor[y].length; x++) {
+				floor[y][x].update();
+			}
+		}
+
 	}
 
 	var collide = function(ai) {
