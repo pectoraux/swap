@@ -2,16 +2,15 @@
 
 mkdir -p levels
 
-numLevels=$(sudo cat js/levels.js | grep 'tiles' | wc -l) #counts number of levels (not sure why superuser was required, but it was)
+numLevels=$(cat js/levels.js | grep 'tiles' | wc -l) #counts number of levels (not sure why superuser was required, but it was)
 
 
 for i in $(seq 0 1 $(($numLevels - 1)))
 do
-   sudo touch "levels/level$i.html"
-   sudo sed -e "s/\${i}/$i/" template.html > "levels/level$i.html"
+   touch "levels/level$i.html"
+   sed -e "s/\${i}/$i/" template.html > "levels/level$i.html"
 done
 
-chmod 777 levels/*
 # git push origin master
 
 # git checkout gh-pages
