@@ -5,8 +5,10 @@ var player = function() {
 	var friction = 1.25;
 	var trail = [];
 	var hasHitWall = false;
+	var gridSize;
 
-	var init = function() {
+	var init = function(gSize) {
+		gridSize = gSize;
 		vx = 0;
 		vy = 0;
 		this.trail.length = 0;
@@ -28,32 +30,24 @@ var player = function() {
 		this.trail.push([this.x, this.y]);
 		if (this.trail.length >= 5) this.trail.shift();
 
-		var keyUp = true;
+		if(input.right) {
+            if (vx <= gridSize / 10) vx += (Math.abs(vx) + 1) / friction;
+		}
+        else if(input.left) {
+            if (vx >= -gridSize / 10) vx -= (Math.abs(vx) + 1) / friction;
+        }
 
-		if(input.keys[input.right]) {
-			keyUp = false;
-			// vx = gridSize / 10;
-			// for fluid acceleration
-			if (vx <= gridSize / 10) vx += (Math.abs(vx) + 1) / friction;
-		}
-		else if(input.keys[input.left]) {
-			keyUp = false;
-			if (vx >= -gridSize / 10) vx -= (Math.abs(vx) + 1) / friction;
-		}
-		if(input.keys[input.up]) {
-			keyUp = false;
-			if (vy >= -gridSize / 10) vy -= (Math.abs(vy) + 1) / friction;
-			//vy = -gridSize/10;
-		}
-		else if(input.keys[input.down]) {
-			keyUp = false;
-			// vy = gridSize/10;
-			if (vy <= gridSize / 10) vy += (Math.abs(vy) + 1) / friction;
-		}
-		if (keyUp) {
-			vx = vx / friction; 
-			vy = vy / friction; 
-		}
+        if(input.up){
+            if (vy >= -gridSize / 10) vy -= (Math.abs(vy) + 1) / friction;
+        }
+        else if(input.down) {
+            if (vy <= gridSize / 10) vy += (Math.abs(vy) + 1) / friction;
+        }
+        if(!input.right && !input.left && !input.up && !input.down) {
+        	vx = vx / friction;
+        	vy = vy / friction;
+        }
+
 		this.x += vx;
 		this.y += vy;
 	}

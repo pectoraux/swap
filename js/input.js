@@ -1,27 +1,76 @@
 var input = {
-	right: 39,
-	up: 38,
-	left: 37,
-	down: 40,
-	space: 32,
-	keys: [],
-	init: function() {
-		input.keys.length = 0;
-		window.addEventListener('keydown',this.keyDown,false);
-		window.addEventListener('keyup',this.keyUp,false);
-		for(var i=0; i<128; i++) {
-			input.keys.push(false);
-		}
+	right: false,
+	left: false,
+	up: false,
+	down: false,
+	reset: function() {
+		input.right = false;
+		input.left = false;
+		input.up = false;
+		input.down = false;
 	},
-	keyDown: function(e) {
-		var code = e.keyCode;
-		input.keys[code] = true;
-		return false;
+	dialogueMode: function() {
+		keypress.unregister_many(combos_inGame);
+		keypress.register_many(combos_dialogue);
 	},
-	keyUp: function(e) {
-		var code = e.keyCode;
-		input.keys[code] = false;
-		return false;
-	}
+	gameMode: function() {
+		keypress.unregister_many(combos_dialogue);
+		keypress.register_many(combos_inGame);
+	},
+};
+
+combos_dialogue = [
+{
+	"keys": "space",
+	"on_keyup": function() {
+		//here you go Michael
+	},
 }
+]
+
+combos_inGame = [
+{
+	"keys": "up",
+	"on_keydown": function() {
+		input.up = true;
+	},
+	"on_keyup": function() {
+		input.up = false;
+	}
+}, 
+{
+	"keys": "left",
+	"on_keydown": function() {
+		input.left = true;
+	},
+	"on_keyup": function() {
+		input.left = false;
+	}
+},
+{
+	"keys": "right",
+	"on_keydown": function() {
+		input.right = true;
+	},
+	"on_keyup": function() {
+		input.right = false;
+	}
+},
+{
+	"keys": "down",
+	"on_keydown": function() {
+		input.down = true;
+	},
+	"on_keyup": function() {
+		input.down = false;
+	}
+},
+{
+	"keys": "space",
+	"on_keyup": function() {
+		world.cyclePlayer();
+	},
+},
+];
+
 

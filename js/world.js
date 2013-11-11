@@ -22,11 +22,12 @@ var world = function() {
 			return;
 		}
 
-		input.init();
 		renderer.initLevel(levels[level]);
-		player.init();
-		
 		gridSize = renderer.gridSize;
+
+		player.init(gridSize);
+		input.gameMode();
+				
 		loadLevel(level);
 
 		intervalId = setInterval(run, 1000 / fps);
@@ -76,10 +77,6 @@ var world = function() {
 	var update = function() {
 		//update player and player collision
 		player.update(gridSize);
-		if(input.keys[input.space]==false && hitSpace==true) {
-			cyclePlayer();
-		}
-		hitSpace = input.keys[input.space];
 		var touchingTiles = collide(player).tiles;
 		var hitWall = false;
 		for(var i=0; i<touchingTiles.length; i++) {
@@ -145,6 +142,7 @@ var world = function() {
 	return {
 		init: init,
 		victory: victory,
+		cyclePlayer: cyclePlayer,
 		death: death,
 	}
 }();
