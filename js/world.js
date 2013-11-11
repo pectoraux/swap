@@ -6,6 +6,7 @@ var world = function() {
 	var intervalId;
 	var fps = 30;
 	var hitSpace = false;
+	var dialogue = "";
 
 	var init = function(level, canvasId, tipId) {
 		renderer.init(canvasId, tipId);
@@ -18,7 +19,8 @@ var world = function() {
 
 		curLevel = level;
 		if(level==levels.length) {
-			alert("That's all folks!");
+			// alert("That's all folks!");
+			createDialogue("That's all folks");
 			return;
 		}
 
@@ -36,12 +38,14 @@ var world = function() {
 	}
 
 	var victory = function() {
-		alert("You win!");
+		// alert("You win!");
+		createDialogue("You won!");
 		initLevel(curLevel+1);
 	}
 
 	var death = function() {
-		alert("You died! :O");
+		// alert("You died! :O");
+		createDialogue("You died! :-O");
 		clearInterval(intervalId); 
 		initLevel(curLevel);
 	}
@@ -71,8 +75,12 @@ var world = function() {
 	}
 
 	var run = function() {
-		update();
-		renderer.draw(aiEntities, floor);
+			update();
+			renderer.draw(aiEntities, floor);
+		if (dialogue) {
+			input.dialogueMode();
+			renderer.showDialogue(dialogue);
+		}
 	}	
 
 	var update = function() {
@@ -140,10 +148,21 @@ var world = function() {
 		player.setAI(aiEntities.shift());
 	}
 
+	var createDialogue = function(info) {
+		input.dialogueMode();
+		dialogue = info;
+	}
+
+	var closeDialogue = function() {
+		input.gameMode();
+		dialogue = "";
+	}
+
 	return {
 		init: init,
 		victory: victory,
 		cyclePlayer: cyclePlayer,
 		death: death,
+		closeDialogue: closeDialogue,
 	}
 }();
