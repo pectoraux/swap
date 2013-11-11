@@ -40,14 +40,15 @@ var world = function() {
 	var victory = function() {
 		// alert("You win!");
 		createDialogue("You won!");
-		initLevel(curLevel+1);
+		// initLevel(curLevel+1);
+		curLevel++;
 	}
 
 	var death = function() {
 		// alert("You died! :O");
 		createDialogue("You died! :-O");
 		clearInterval(intervalId); 
-		initLevel(curLevel);
+		// initLevel(curLevel);
 	}
 
 	var loadLevel = function(index) {
@@ -75,8 +76,8 @@ var world = function() {
 	}
 
 	var run = function() {
-			update();
-			renderer.draw(aiEntities, floor);
+		if (!dialogue)	update();
+		renderer.draw(aiEntities, floor);
 		if (dialogue) {
 			input.dialogueMode();
 			renderer.showDialogue(dialogue);
@@ -156,6 +157,7 @@ var world = function() {
 	var closeDialogue = function() {
 		input.gameMode();
 		dialogue = "";
+		initLevel(curLevel);
 	}
 
 	return {
