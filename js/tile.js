@@ -76,4 +76,3 @@ var getTile = function(id) {
 	}
 }
 
-
