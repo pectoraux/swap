@@ -23,7 +23,7 @@ combos_dialogue = [
 {
 	"keys": "space",
 	"on_keyup": function() {
-		//here you go Michael
+		world.closeDialogue();
 	},
 }
 ]

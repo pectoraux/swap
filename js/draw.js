@@ -62,11 +62,23 @@ var renderer = function() {
 		}
 	}
 
+	var showDialogue = function(info) {
+		ctx.fillStyle = "rgba(255, 255, 255, 0.75)";
+		ctx.strokeStyle = "black";
+		ctx.fillRect(width / 2 - 150, height / 2 - 150, 300, 300);
+		ctx.strokeRect(width / 2 - 150, height / 2 - 150, 300, 300);
+		ctx.fillStyle = "black";
+		ctx.font = "bold 35px sans-serif";
+		ctx.textAlign = "center";
+		ctx.fillText(info, width / 2, height / 2);                        
+	}
+
 	return {
 		init: init,
 		initLevel: initLevel,
 		draw: draw,
 		gridSize: gridSize,
+		showDialogue: showDialogue,
 	}
 }();
 
