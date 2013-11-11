@@ -27,6 +27,7 @@ var world = function() {
 
 		player.init(gridSize);
 		input.gameMode();
+		input.reset();
 				
 		loadLevel(level);
 
