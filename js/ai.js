@@ -5,8 +5,10 @@ var AI = {
 	vy:0,
 	color: "rgba(0, 10, 200, 0.4)",
 	update: function(gridSize) {
-		this.x += this.vx/gridSize;
-		this.y += this.vy/gridSize; 
+		if(this.vx!=0)
+			this.x += gridSize/this.vx;
+		if(this.vy!=0)
+			this.y += gridSize/this.vy; 
 	}, 
 	onCollide: function(tile) {
 
@@ -24,14 +26,14 @@ var RightAI = function(x, y) {
 	this.y = y;
 }
 RightAI.prototype = Object.create(AI);
-RightAI.prototype.vx = 640;
+RightAI.prototype.vx = 12;
 
 var RightBounceAI = function(x, y) {
 	this.x = x;
 	this.y = y;
 }
 RightBounceAI.prototype = Object.create(AI);
-RightBounceAI.prototype.vx = 640;
+RightBounceAI.prototype.vx = 12;
 RightBounceAI.prototype.onCollide = function(tile) {
 	if(tile.blocksMovement)
 		this.vx *= -1;
