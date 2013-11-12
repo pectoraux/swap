@@ -34,11 +34,21 @@ var RightBounceAI = function(x, y) {
 }
 RightBounceAI.prototype = Object.create(AI);
 RightBounceAI.prototype.vx = 12;
+RightBounceAI.hitWall = false;
 RightBounceAI.prototype.onCollide = function(tile) {
-	if(tile.blocksMovement)
+	if(tile.blocksMovement && !this.hitWall) {
 		this.vx *= -1;
+		this.hitWall = true;
+	}
 }
+RightBounceAI.prototype.update = function(gridSize) {
+	this.hitWall = false;
 
+	if(this.vx!=0)
+		this.x += gridSize/this.vx;
+	if(this.vy!=0)
+		this.y += gridSize/this.vy; 
+}
 
 var FollowAI = function(x, y) {
 	this.x = x;
