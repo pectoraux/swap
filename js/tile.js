@@ -34,6 +34,15 @@ var SwitchedTile = function(){};
 SwitchedTile.prototype = Object.create(Tile);
 SwitchedTile.prototype.blocksMovement = true;
 SwitchedTile.prototype.color = "orange";
+SwitchedTile.prototype.onCollide = function(ai) {
+	this.touchingAI = true;
+	this.justTouching = true;
+}
+SwitchedTile.prototype.update = function(ai) {
+	if(!this.justTouching)
+		this.touchingAI = false;
+	this.justTouching = false;
+}
 
 var SwitchTile = function(id){
 	this.switchingId = id;
@@ -47,8 +56,10 @@ SwitchTile.prototype.onCollide = function(ai) {
 }
 SwitchTile.prototype.update = function() {
 	if(!this.down) {
-		switchedTiles[this.switchingId].blocksMovement = true;
-		switchedTiles[this.switchingId].color = "orange";
+		if(!switchedTiles[this.switchingId].touchingAI) {
+			switchedTiles[this.switchingId].blocksMovement = true;
+			switchedTiles[this.switchingId].color = "orange";
+		}
 	}
 	this.down = false;
 }
