@@ -161,11 +161,17 @@ var world = function() {
 		console.log("closeDialogue()");
 	}
 
+	var resetLevel = function() {
+		createDialogue("Level Reset!");
+		initLevel(curLevel);
+	}
+
 	return {
 		init: init,
 		victory: victory,
 		cyclePlayer: cyclePlayer,
 		death: death,
 		closeDialogue: closeDialogue,
+		resetLevel: resetLevel,
 	}
 }();
