@@ -158,6 +158,7 @@ var world = function() {
 		input.gameMode();
 		dialogue = "";
 		initLevel(curLevel);
+		console.log("closeDialogue()");
 	}
 
 	return {

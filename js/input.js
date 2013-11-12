@@ -10,11 +10,11 @@ var input = {
 		input.down = false;
 	},
 	dialogueMode: function() {
-		keypress.unregister_many(combos_inGame);
+		keypress.reset();
 		keypress.register_many(combos_dialogue);
 	},
 	gameMode: function() {
-		keypress.unregister_many(combos_dialogue);
+		keypress.reset();
 		keypress.register_many(combos_inGame);
 	},
 };
@@ -26,7 +26,7 @@ combos_dialogue = [
 		world.closeDialogue();
 	},
 }
-]
+];
 
 combos_inGame = [
 {
