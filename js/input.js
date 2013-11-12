@@ -71,6 +71,12 @@ combos_inGame = [
 		world.cyclePlayer();
 	},
 },
+{
+	"keys": "r",
+	"on_keyup": function() {
+		world.resetLevel();
+	}
+}
 ];
 
 
