@@ -66,6 +66,42 @@ combos_inGame = [
 	}
 },
 {
+	"keys": "w",
+	"on_keydown": function() {
+		input.up = true;
+	},
+	"on_keyup": function() {
+		input.up = false;
+	}
+}, 
+{
+	"keys": "a",
+	"on_keydown": function() {
+		input.left = true;
+	},
+	"on_keyup": function() {
+		input.left = false;
+	}
+},
+{
+	"keys": "d",
+	"on_keydown": function() {
+		input.right = true;
+	},
+	"on_keyup": function() {
+		input.right = false;
+	}
+},
+{
+	"keys": "s",
+	"on_keydown": function() {
+		input.down = true;
+	},
+	"on_keyup": function() {
+		input.down = false;
+	}
+},
+{
 	"keys": "space",
 	"on_keyup": function() {
 		world.cyclePlayer();

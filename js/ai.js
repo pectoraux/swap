@@ -3,7 +3,7 @@ var AI = {
 	y:0,
 	vx:0,
 	vy:0,
-	color: "rgba(0, 10, 200, 0.4)",
+	color: "rgb(109, 207, 246)",//"rgba(0, 10, 200, 0.4)",
 	update: function(gridSize) {
 		if(this.vx!=0)
 			this.x += gridSize/this.vx;

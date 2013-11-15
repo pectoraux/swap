@@ -29,7 +29,7 @@ var levels = [
 		[1,-1, 0, 0, 0, 0, 0, 0, 0, 1],
 		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 		],
-		tip: "Use arrows to move...",
+		tip: "Use arrows or WASD to move...",
 	},
 	{
 		sizeX: 10,

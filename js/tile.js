@@ -5,35 +5,35 @@ var Tile = {
 	update: function() {},
 	onCollide: function(ai) {},
 	blocksMovement: false,
-	color: "white",
+	color: "rgb(235, 235, 235)",
 };
 
-var WhiteTile = function(){};
-WhiteTile.prototype = Object.create(Tile);
+var FloorTile = function(){};
+FloorTile.prototype = Object.create(Tile);
 
-var RedTile = function(){};
-RedTile.prototype = Object.create(Tile);
-RedTile.prototype.onCollide = function(ai) {
+var LavaTile = function(){};
+LavaTile.prototype = Object.create(Tile);
+LavaTile.prototype.onCollide = function(ai) {
 	world.death();
 }
-RedTile.prototype.color = "red";
+LavaTile.prototype.color = "red";
 
-var GreenTile = function(){};
-GreenTile.prototype = Object.create(Tile);
-GreenTile.prototype.onCollide = function(ai) {
+var VictoryTile = function(){};
+VictoryTile.prototype = Object.create(Tile);
+VictoryTile.prototype.onCollide = function(ai) {
 	world.victory();
 }
-GreenTile.prototype.color = "rgba(95, 255, 80, 1.0)";
+VictoryTile.prototype.color = "rgb(163, 211, 156)"; //"rgba(95, 255, 80, 1.0)";
 
-var GrayTile = function(){};
-GrayTile.prototype = Object.create(Tile);
-GrayTile.prototype.blocksMovement = true;
-GrayTile.prototype.color = "grey";
+var WallTile = function(){};
+WallTile.prototype = Object.create(Tile);
+WallTile.prototype.blocksMovement = true;
+WallTile.prototype.color = "grey";
 
 var SwitchedTile = function(){};
 SwitchedTile.prototype = Object.create(Tile);
 SwitchedTile.prototype.blocksMovement = true;
-SwitchedTile.prototype.color = "orange";
+SwitchedTile.prototype.color = "rgb(253, 198, 137)";
 SwitchedTile.prototype.onCollide = function(ai) {
 	this.touchingAI = true;
 	this.justTouching = true;
@@ -48,7 +48,7 @@ var SwitchTile = function(id){
 	this.switchingId = id;
 }
 SwitchTile.prototype = Object.create(Tile);
-SwitchTile.prototype.color = "yellow";
+SwitchTile.prototype.color = "rgb(255, 247, 153)";
 SwitchTile.prototype.onCollide = function(ai) {
 	this.down = true;
 	switchedTiles[this.switchingId].blocksMovement = false;
@@ -58,7 +58,7 @@ SwitchTile.prototype.update = function() {
 	if(!this.down) {
 		if(!switchedTiles[this.switchingId].touchingAI) {
 			switchedTiles[this.switchingId].blocksMovement = true;
-			switchedTiles[this.switchingId].color = "orange";
+			switchedTiles[this.switchingId].color = "rgb(253, 198, 137)";
 		}
 	}
 	this.down = false;
@@ -76,13 +76,13 @@ var getTile = function(id) {
 	else {
 		switch(id) {
 			case 1:
-				return new GrayTile();
+				return new WallTile();
 			case 2:
-				return new GreenTile();
+				return new VictoryTile();
 			case 3:
-				return new RedTile();
+				return new LavaTile();
 			default:
-				return new WhiteTile();
+				return new FloorTile();
 		}
 	}
 }

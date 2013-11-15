@@ -2,7 +2,7 @@ var player = function() {
 	var x,y;
 	var vx = 0, vy = 0;
 	var currentAI;
-	var friction = 1.25;
+	var friction = 1.5;
 	var trail = [];
 	var hasHitWall = false;
 	var gridSize;
@@ -74,7 +74,7 @@ var player = function() {
 	return {
 		x: x,
 		y: y,
-		color: "rgba(0, 10, 200, 0.4)",
+		color: "rgb(109, 207, 246)",//"rgba(0, 10, 200, 0.4)",
 		trail: trail,
 		hasHitWall: hasHitWall,
 		onCollide: onCollide,
