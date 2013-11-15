@@ -26,14 +26,14 @@ var RightAI = function(x, y) {
 	this.y = y;
 }
 RightAI.prototype = Object.create(AI);
-RightAI.prototype.vx = 12;
+RightAI.prototype.vx = 7;
 
 var RightBounceAI = function(x, y) {
 	this.x = x;
 	this.y = y;
 }
 RightBounceAI.prototype = Object.create(AI);
-RightBounceAI.prototype.vx = 12;
+RightBounceAI.prototype.vx = 7;
 RightBounceAI.hitWall = false;
 RightBounceAI.prototype.onCollide = function(tile) {
 	if(tile.blocksMovement && !this.hitWall) {
@@ -60,7 +60,7 @@ FollowAI.prototype.update = function(gridSize) {
 	this.y += player.getVelocity().y;
 }
 FollowAI.prototype.onCollide = function(tile) {
-	if(tile.blocksMovement)
+	if(tile.blocksMovement) 
 		world.death();
 }
 

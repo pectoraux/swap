@@ -11,6 +11,7 @@ var world = function() {
 	var init = function(level, canvasId, tipId) {
 		renderer.init(canvasId, tipId);
 		initLevel(level);
+		createDialogue("Welcome to Swap");
 	}
 
 	var initLevel = function(level) {

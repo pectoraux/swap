@@ -58,10 +58,10 @@ var player = function() {
 
 	var hitWall = function() {
 		this.hasHitWall = true;
-		this.x = this.trail[2][0] || this.x;
-		this.y = this.trail[2][1] || this.y;
-		vx *= -1;
-		vy *= -1;
+		this.x = this.trail[1][0] || this.x;
+		this.y = this.trail[1][1] || this.y;
+		vx *= -0.7;
+		vy *= -0.7;
 	}
 
 	var getVelocity = function() {

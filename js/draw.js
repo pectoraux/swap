@@ -70,7 +70,10 @@ var renderer = function() {
 		ctx.fillStyle = "black";
 		ctx.font = "bold 35px sans-serif";
 		ctx.textAlign = "center";
-		ctx.fillText(info, width / 2, height / 2);                        
+		ctx.fillText(info, width / 2, height / 2);    
+		ctx.font = "20px sans-serif";
+		ctx.fillText("(Space to continue)", width/2, height/2+40);
+                 
 	}
 
 	return {

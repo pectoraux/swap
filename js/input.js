@@ -76,7 +76,16 @@ combos_inGame = [
 	"on_keyup": function() {
 		world.resetLevel();
 	}
-}
+},
+{
+	"keys": "up up down down left right left right b a enter", 
+	"on_keyup": function() {
+		world.victory();
+	},
+	"is_sequence": true,
+},
 ];
+
+
 
 

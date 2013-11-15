@@ -23,7 +23,7 @@ GreenTile.prototype = Object.create(Tile);
 GreenTile.prototype.onCollide = function(ai) {
 	world.victory();
 }
-GreenTile.prototype.color = "green";
+GreenTile.prototype.color = "rgba(95, 255, 80, 1.0)";
 
 var GrayTile = function(){};
 GrayTile.prototype = Object.create(Tile);
