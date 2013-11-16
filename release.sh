@@ -4,8 +4,6 @@ mkdir -p levels
 
 numLevels=$(cat js/levels.js | grep 'tiles' | wc -l) #counts number of levels (not sure why superuser was required, but it was)
 
-sed -e "s/\${i}/0/" template.html > index.html
-
 
 for i in $(seq 0 1 $(($numLevels - 1)))
 do
