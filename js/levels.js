@@ -4,6 +4,8 @@ Key:
 0 - white tile
 2 - green tile (goal)
 3 - red tile (lava)
+10-19 - switch (corresponds with wall n+10 where n is its number)
+20-29 - switched wall
 
 -1 - normal player
 -2 - moves to the right
@@ -240,5 +242,23 @@ var levels = [
 		],
 		tip: "Did I say guess-and-check before? Sorry - that was kind of offensive.",
 	},
-
+	{
+		sizeX: 21,
+		sizeY: 10,
+		startX: 1,
+		startY: 8,
+		tiles: [
+		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 0, 2, 2, 2, 0, 2, 0, 0, 0, 2, 0, 0, 2, 0, 0, 2, 2, 0, 0, 1],
+		[1, 0, 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 1],
+		[1, 0, 2, 2, 2, 0, 2, 0, 2, 0, 2, 0, 2, 2, 2, 0, 2, 2, 0, 0, 1],
+		[1, 0, 0, 0, 2, 0, 2, 2, 0, 2, 2, 0, 2, 0, 2, 0, 2, 0, 0, 0, 1],
+		[1, 0, 2, 2, 2, 0, 2, 0, 0, 0, 2, 0, 2, 0, 2, 0, 2, 0, 0, 0, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1,-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+		],
+		tip: "Swap, by Noah Moroze and Michael Yang. Thanks for playing!",
+	},
 ]

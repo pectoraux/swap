@@ -74,7 +74,7 @@ var player = function() {
 	return {
 		x: x,
 		y: y,
-		color: "rgb(109, 207, 246)",//"rgba(0, 10, 200, 0.4)",
+		color: "rgb(125,167,217)",//"rgba(0, 10, 200, 0.4)",
 		trail: trail,
 		hasHitWall: hasHitWall,
 		onCollide: onCollide,

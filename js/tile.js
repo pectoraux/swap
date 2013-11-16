@@ -52,7 +52,7 @@ SwitchTile.prototype.color = "rgb(255, 247, 153)";
 SwitchTile.prototype.onCollide = function(ai) {
 	this.down = true;
 	switchedTiles[this.switchingId].blocksMovement = false;
-	switchedTiles[this.switchingId].color = "white";
+	switchedTiles[this.switchingId].color = "rgb(235, 235, 235)";
 }
 SwitchTile.prototype.update = function() {
 	if(!this.down) {
