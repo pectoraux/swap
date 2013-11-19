@@ -5,7 +5,8 @@ var Tile = {
 	update: function() {},
 	onCollide: function(ai) {},
 	blocksMovement: false,
-	color: "rgb(235, 235, 235)",
+	//color: "rgb(235, 235, 235)",
+	color:"white",
 };
 
 var FloorTile = function(){};

@@ -13,13 +13,19 @@ var renderer = function() {
 	}
 
 	var initLevel = function(level) {
-		tipDisplay.innerHTML = level.tip;
 		var sizeX = level.sizeX;
 		var sizeY = level.sizeY;
 		this.gridSize = width/sizeX<height/sizeY ? width/sizeX : height/sizeY;
 		ctx.clearRect(0, 0, width, height);
 	}
 
+	var renderText = function(deaths, level, tip) {
+		tipDisplay.innerHTML = deaths + " Deaths " + 
+		 "  |  Level " + level + "/" + (levels.length-1) 
+		+ "<br>" + tip;
+
+		console.log(deaths);
+	}
 	var draw = function(aiEntities, floor) {
 		//iterate through and draw tiles first, then entities
 		var gridSize = this.gridSize;
@@ -87,6 +93,7 @@ var renderer = function() {
 	return {
 		init: init,
 		initLevel: initLevel,
+		renderText: renderText,
 		draw: draw,
 		gridSize: gridSize,
 		showDialogue: showDialogue,

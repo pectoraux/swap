@@ -3,10 +3,12 @@ var world = function() {
 	var floor = [];
 	var gridSize;
 	var curLevel;
+	var deaths = 0;
 	var intervalId;
 	var fps = 30;
 	var hitSpace = false;
 	var dialogue = "";
+	var hasDied = false;
 
 	var init = function(level, canvasId, tipId) {
 		renderer.init(canvasId, tipId);
@@ -15,6 +17,7 @@ var world = function() {
 	}
 
 	var initLevel = function(level) {
+		hasDied = false;
 		if(intervalId)
 			clearInterval(intervalId); //makes sure we don't run dual loops
 
@@ -33,6 +36,7 @@ var world = function() {
 		input.reset();
 				
 		loadLevel(level);
+		renderer.renderText(deaths, curLevel, levels[curLevel].tip);
 
 		intervalId = setInterval(run, 1000 / fps);
 		run();
@@ -48,7 +52,11 @@ var world = function() {
 	var death = function() {
 		// alert("You died! :O");
 		createDialogue("You died! :-O");
-		clearInterval(intervalId); 
+		clearInterval(intervalId);
+		if(!hasDied) 
+			deaths++; 
+		hasDied = true;
+		renderer.renderText(deaths, curLevel, levels[curLevel].tip);
 		// initLevel(curLevel);
 	}
 
