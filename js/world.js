@@ -9,11 +9,13 @@ var world = function() {
 	var hitSpace = false;
 	var dialogue = "";
 	var hasDied = false;
+	var prevTime;
 
 	var init = function(level, canvasId, tipId) {
 		renderer.init(canvasId, tipId);
 		initLevel(level);
 		createDialogue("Welcome to Swap");
+		prevTime = Date.now();
 	}
 
 	var initLevel = function(level) {
@@ -85,6 +87,9 @@ var world = function() {
 	}
 
 	var run = function() {
+		// var deltaTime = (Date.now() - prevTime);
+		// prevTime = Date.now();
+		// console.log(deltaTime);
 		if (!dialogue)	update();
 		renderer.draw(aiEntities, floor);
 		if (dialogue) {
