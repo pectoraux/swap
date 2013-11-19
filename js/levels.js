@@ -244,7 +244,7 @@ var levels = [
 	},
 	{
 		sizeX: 13,
-		sizeY: 12,
+		sizeY: 13,
 		startX: 1,
 		startY: 3,
 		tiles: [
