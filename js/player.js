@@ -4,7 +4,6 @@ var player = function() {
 	var currentAI;
 	var friction = 1.5;
 	var trail = [];
-	var hasHitWall = false;
 	var gridSize;
 
 	var init = function(gSize) {
@@ -52,12 +51,7 @@ var player = function() {
 		this.y += vy;
 	}
 
-	var onCollide = function(tile){
-
-	}
-
 	var hitWall = function() {
-		this.hasHitWall = true;
 		this.x = this.trail[1][0] || this.x;
 		this.y = this.trail[1][1] || this.y;
 		vx *= -0.7;
@@ -76,8 +70,6 @@ var player = function() {
 		y: y,
 		color: "rgb(125,167,217)",//"rgba(0, 10, 200, 0.4)",
 		trail: trail,
-		hasHitWall: hasHitWall,
-		onCollide: onCollide,
 		getVelocity: getVelocity,
 		init: init,
 		setAI: setAI,

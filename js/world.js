@@ -97,18 +97,15 @@ var world = function() {
 		//update player and player collision
 		player.update(gridSize);
 		var touchingTiles = collide(player).tiles;
-		var hitWall = false;
 		for(var i=0; i<touchingTiles.length; i++) {
 			if(touchingTiles[i].blocksMovement) {
-				hitWall = true;
+				player.hitWall();
 			}
 			else {
 				touchingTiles[i].onCollide(player);
 			}
 		}
-		if(hitWall) 
-			player.hitWall();
-
+		
 		//update AIs and AI collisions
 		for(var i=0; i<aiEntities.length; i++) {
 			aiEntities[i].update(gridSize);

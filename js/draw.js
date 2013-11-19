@@ -82,10 +82,10 @@ var renderer = function() {
 		ctx.fillRect(width / 2 - 150, height / 2 - 150, 300, 300);
 		ctx.strokeRect(width / 2 - 150, height / 2 - 150, 300, 300);
 		ctx.fillStyle = "black";
-		ctx.font = "bold 35px sans-serif";
+		ctx.font = "600 32px Open Sans";
 		ctx.textAlign = "center";
 		ctx.fillText(info, width / 2, height / 2);    
-		ctx.font = "20px sans-serif";
+		ctx.font = "20px Open Sans";
 		ctx.fillText("(Space to continue)", width/2, height/2+40);
                  
 	}
