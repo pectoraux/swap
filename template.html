@@ -2,14 +2,15 @@
 <html>
 <head>
 	<title>Swap</title>
-	<script src="../js/ai.js"></script>
-	<script src="../js/tile.js"></script>
-	<script src="../js/levels.js"></script>
-	<script src="../js/world.js"></script>
-	<script src="../js/draw.js"></script>
-	<script src="../js/input.js"></script>
-	<script src="../js/keypress-1.0.8.min.js"></script>
-	<script src="../js/player.js"></script>
+
+	<script src="js/tile.js"></script>
+	<script src="js/ai.js"></script>
+	<script src="js/levels.js"></script>
+	<script src="js/player.js"></script>
+	<script src="js/world.js"></script>
+	<script src="js/draw.js"></script>
+	<script src="js/keypress-1.0.8.min.js"></script>
+	<script src="js/input.js"></script>
 
 	<script type="text/javascript">
 		window.onload = function() {
@@ -17,10 +18,18 @@
 		}
 	</script>
 	<link rel='shortcut icon' type='image/x-icon' href='/favicon.ico' />
+
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+
+
+	<style>
+		body { font-family: 'Open Sans', sans-serif; font-weight: 400; }
+	</style>
 </head>
 <body>
 <center>
-<div id="tip" style="font-size: 36px;"></div>
+<div id="tip" style="font-size: 24px;"></div>
+
 <canvas id="canvas" width="640" height="640"></canvas>
 </center>
 </body>

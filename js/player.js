@@ -25,7 +25,7 @@ var player = function() {
 		this.currentAI.y = this.y;
 		return this.currentAI;
 	}
-	var update = function(gridSize) {
+	var update = function(gridSize) { // weird inconsistent speed cap issue
 		this.trail.push([this.x, this.y]);
 		if (this.trail.length >= 5) this.trail.shift();
 
@@ -54,8 +54,8 @@ var player = function() {
 	var hitWall = function() {
 		this.x = this.trail[1][0] || this.x;
 		this.y = this.trail[1][1] || this.y;
-		vx *= -0.7;
-		vy *= -0.7;
+		vx *= -0.3;
+		vy *= -0.3;
 	}
 
 	var getVelocity = function() {

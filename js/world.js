@@ -105,7 +105,7 @@ var world = function() {
 				touchingTiles[i].onCollide(player);
 			}
 		}
-		
+
 		//update AIs and AI collisions
 		for(var i=0; i<aiEntities.length; i++) {
 			aiEntities[i].update(gridSize);

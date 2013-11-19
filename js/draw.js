@@ -21,8 +21,8 @@ var renderer = function() {
 
 	var renderText = function(deaths, level, tip) {
 		tipDisplay.innerHTML = deaths + " Deaths " + 
-		 "  |  Level " + level + "/" + (levels.length-1) 
-		+ "<br>" + tip;
+		 " | Level " + level + " / " + (levels.length-1) 
+		+ "<br>" + "<em>" + tip + "</em>";
 
 		console.log(deaths);
 	}
@@ -30,13 +30,14 @@ var renderer = function() {
 		//iterate through and draw tiles first, then entities
 		var gridSize = this.gridSize;
 		ctx.globalAlpha = 1;
-		ctx.strokeStyle = "rgb(0, 0, 0)";
-		ctx.lineWidth = 0.2;
+		ctx.strokeStyle = "rgba(0, 0, 0, 0.5)";
+		ctx.lineWidth = 0.25;
 		for (var y = 0; y < floor.length; y++) {
 			for (var x = 0; x < floor[y].length; x++) {
 				ctx.fillStyle = floor[y][x].color;
 				ctx.fillRect(x*gridSize, y*gridSize, gridSize, gridSize);
 				ctx.strokeRect(x*gridSize, y*gridSize, gridSize, gridSize);
+				clearShadows();
 			}
 		}
 		for (var i = 0; i < aiEntities.length; i++) {
@@ -77,17 +78,27 @@ var renderer = function() {
 	}
 
 	var showDialogue = function(info) {
-		ctx.fillStyle = "rgba(255, 255, 255, 0.75)";
+		ctx.fillStyle = "rgba(255, 255, 255, 1)";
 		ctx.strokeStyle = "black";
+		ctx.shadowColor = "rgba(0, 0, 0, 0.2)";
+		ctx.shadowBlur = 15;
 		ctx.fillRect(width / 2 - 150, height / 2 - 150, 300, 300);
 		ctx.strokeRect(width / 2 - 150, height / 2 - 150, 300, 300);
+		clearShadows();   
 		ctx.fillStyle = "black";
 		ctx.font = "600 32px Open Sans";
 		ctx.textAlign = "center";
-		ctx.fillText(info, width / 2, height / 2);    
+		ctx.fillText(info, width / 2, height / 2);  
+		ctx.fillStyle = "rgba(0, 0, 0, 0.65)";  
 		ctx.font = "20px Open Sans";
-		ctx.fillText("(Space to continue)", width/2, height/2+40);
-                 
+		ctx.fillText("Space to continue", width/2, height/2+35);    
+	}
+
+	var clearShadows = function() {
+		ctx.shadowColor = 0;
+		ctx.shadowBlur = 0;
+		ctx.shadowOffsetX = 0;
+		ctx.shadowOffsetY = 0;
 	}
 
 	return {
