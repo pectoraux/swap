@@ -52,8 +52,10 @@ var player = function() {
 	}
 
 	var hitWall = function() {
-		this.x = this.trail[1][0] || this.x;
-		this.y = this.trail[1][1] || this.y;
+		if(this.trail[1]) {
+			this.x = this.trail[1][0] || this.x;
+			this.y = this.trail[1][1] || this.y;
+		}
 		vx *= -0.3;
 		vy *= -0.3;
 	}

@@ -1,12 +1,15 @@
 var renderer = function() {
+	var canvas;
 	var ctx;
 	var gridSize;
 	var width, height;
 	var tipDisplay;
+	var hud;
 
-	var init = function(canvasId, tipId, level) {
-		var canvas = document.getElementById(canvasId);
+	var init = function(canvasId, hudId, tipId) {
+		canvas = document.getElementById(canvasId);
 		tipDisplay = document.getElementById(tipId);
+		hud = document.getElementById(hudId);
 		ctx = canvas.getContext("2d");
 		width = canvas.width;
 		height = canvas.height;
@@ -16,16 +19,17 @@ var renderer = function() {
 		var sizeX = level.sizeX;
 		var sizeY = level.sizeY;
 		this.gridSize = width/sizeX<height/sizeY ? width/sizeX : height/sizeY;
+
+		canvas.width = this.gridSize * sizeX;
+		canvas.height = this.gridSize * sizeY;
 		ctx.clearRect(0, 0, width, height);
 	}
 
 	var renderText = function(deaths, level, tip) {
-		tipDisplay.innerHTML = deaths + " Deaths " + 
-		 " | Level " + level + " / " + (levels.length-1) 
-		+ "<br>" + "<em>" + tip + "</em>";
-
-		console.log(deaths);
+		hud.innerHTML = deaths + " Deaths " + " | Level " + level + " / " + (levels.length-1);
+		tipDisplay.innerHTML =  "<em>" + tip + "</em>";
 	}
+
 	var draw = function(aiEntities, floor) {
 		//iterate through and draw tiles first, then entities
 		var gridSize = this.gridSize;

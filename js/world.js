@@ -10,9 +10,10 @@ var world = function() {
 	var dialogue = "";
 	var hasDied = false;
 	var prevTime;
+	var hasWon = false;
 
-	var init = function(level, canvasId, tipId) {
-		renderer.init(canvasId, tipId);
+	var init = function(level, canvasId, hudId, tipId) {
+		renderer.init(canvasId, hudId, tipId);
 		initLevel(level);
 		createDialogue("Welcome to Swap");
 		prevTime = Date.now();
@@ -20,6 +21,7 @@ var world = function() {
 
 	var initLevel = function(level) {
 		hasDied = false;
+		hasWon = false;
 		if(intervalId)
 			clearInterval(intervalId); //makes sure we don't run dual loops
 
@@ -45,10 +47,13 @@ var world = function() {
 	}
 
 	var victory = function() {
-		// alert("You win!");
-		createDialogue("You won!");
-		// initLevel(curLevel+1);
-		curLevel++;
+		if(!hasWon) {
+			// alert("You win!");
+			createDialogue("You won!");
+			// initLevel(curLevel+1);
+			curLevel++;
+		}
+		hasWon = true;
 	}
 
 	var death = function() {

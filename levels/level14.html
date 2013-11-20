@@ -12,9 +12,9 @@
 	<script src="../js/keypress-1.0.8.min.js"></script>
 	<script src="../js/input.js"></script>
 
-	<script type="text/javascript">
+		<script type="text/javascript">
 		window.onload = function() {
-			world.init(14, "canvas", "tip");
+			world.init(14, "canvas", "hud", "tip");
 		}
 	</script>
 	<link rel='shortcut icon' type='image/x-icon' href='/favicon.ico' />
@@ -23,16 +23,16 @@
 
 
 	<style>
-		body { 
-			font-family: 'Open Sans', sans-serif; font-weight: 400; 
-		}
+		body { font-family: 'Open Sans', sans-serif; font-weight: 400; }
 	</style>
 </head>
 <body>
 <center>
+
+<div id="hud" style="font-size: 24px;"></div>
+<canvas id="canvas" width="640" height="640"></canvas>
 <div id="tip" style="font-size: 24px;"></div>
 
-<canvas id="canvas" width="640" height="640"></canvas>
 </center>
 </body>
 </html>
