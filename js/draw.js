@@ -86,16 +86,16 @@ var renderer = function() {
 		ctx.strokeStyle = "black";
 		ctx.shadowColor = "rgba(0, 0, 0, 0.2)";
 		ctx.shadowBlur = 15;
-		ctx.fillRect(width / 2 - 150, height / 2 - 150, 300, 300);
-		ctx.strokeRect(width / 2 - 150, height / 2 - 150, 300, 300);
+		ctx.fillRect(width / 2 - 150, canvas.height / 2 - 150, 300, 300);
+		ctx.strokeRect(width / 2 - 150, canvas.height / 2 - 150, 300, 300);
 		clearShadows();   
 		ctx.fillStyle = "black";
 		ctx.font = "600 32px Open Sans";
 		ctx.textAlign = "center";
-		ctx.fillText(info, width / 2, height / 2);  
+		ctx.fillText(info, canvas.width / 2, canvas.height / 2);  
 		ctx.fillStyle = "rgba(0, 0, 0, 0.65)";  
 		ctx.font = "20px Open Sans";
-		ctx.fillText("Space to continue", width/2, height/2+35);    
+		ctx.fillText("Space to continue", canvas.width/2, canvas.height/2+35);    
 	}
 
 	var clearShadows = function() {
