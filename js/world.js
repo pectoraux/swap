@@ -142,9 +142,9 @@ var world = function() {
 		var x = (ai.x - gridSize/2) + 5;
 		var y = (ai.y - gridSize/2) + 5;
 		addToArray(touching.tiles, floor[coordToGrid(x, y).y][coordToGrid(x, y).x]);
-		addToArray(touching.tiles, floor[coordToGrid(x+gridSize-10, y).y][coordToGrid(x+gridSize-10, y).x]);
-		addToArray(touching.tiles, floor[coordToGrid(x, y+gridSize-10).y][coordToGrid(x, y+gridSize-10).x]);
-		addToArray(touching.tiles, floor[coordToGrid(x+gridSize-10, y+gridSize-10).y][coordToGrid(x+gridSize-10, y+gridSize-10).x]);
+		addToArray(touching.tiles, floor[coordToGrid(x+gridSize-15, y).y][coordToGrid(x+gridSize-15, y).x]);
+		addToArray(touching.tiles, floor[coordToGrid(x, y+gridSize-15).y][coordToGrid(x, y+gridSize-15).x]);
+		addToArray(touching.tiles, floor[coordToGrid(x+gridSize-15, y+gridSize-15).y][coordToGrid(x+gridSize-15, y+gridSize-15).x]);
 		return touching;
 	}	
 

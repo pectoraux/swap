@@ -49,7 +49,7 @@ var renderer = function() {
 			ctx.fillStyle = aiEntities[i].color;
 			// ctx.fillRect(aiEntities[i].x, aiEntities[i].y, gridSize-5, gridSize-5);
 			ctx.beginPath();
-			ctx.arc(aiEntities[i].x, aiEntities[i].y, gridSize / 2, 0, 2*Math.PI);
+			ctx.arc(aiEntities[i].x, aiEntities[i].y, gridSize / 2 - 2, 0, 2*Math.PI);
 			ctx.fill();
 		}
 		ctx.globalAlpha = 1;
@@ -60,7 +60,7 @@ var renderer = function() {
 			// ctx.fillRect(trail[i][0], trail[i][1], gridSize-5, gridSize-5);
 
 			ctx.beginPath();
-			ctx.arc(trail[i][0], trail[i][1], gridSize / 2 - (trail.length - i), 0, 2*Math.PI);
+			ctx.arc(trail[i][0], trail[i][1], gridSize / 2 - (trail.length - i) - 2, 0, 2*Math.PI);
 			ctx.fill();
 		}
 		ctx.globalAlpha = 1;
@@ -69,7 +69,7 @@ var renderer = function() {
 			// ctx.fillRect(player.x, player.y, gridSize-5, gridSize-5);
 
 			ctx.beginPath();
-			ctx.arc(player.x, player.y, gridSize / 2, 0, 2*Math.PI);
+			ctx.arc(player.x, player.y, (gridSize / 2) - 2, 0, 2*Math.PI);
 			ctx.fill();
 			//highlight player
 			// ctx.lineWidth = 3;
