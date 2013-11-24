@@ -4,6 +4,10 @@ var AI = {
 	vx:0,
 	vy:0,
 	color: "rgb(125,167,217)",//"rgba(0, 10, 200, 0.4)",
+	init: function(x, y) {
+		this.x = x;
+		this.y = y;
+	},
 	update: function(gridSize) {
 		if(this.vx!=0)
 			this.x += gridSize/this.vx;
@@ -16,14 +20,12 @@ var AI = {
 };
 
 var StationaryAI = function(x, y) {
-	this.x = x;
-	this.y = y;
+	this.init(x, y);
 }
 StationaryAI.prototype = Object.create(AI);
 
 var RightAI = function(x, y) {
-	this.x = x;
-	this.y = y;
+	this.init(x, y);
 }
 RightAI.hitWall = false;
 RightAI.prototype = Object.create(AI);
@@ -43,8 +45,7 @@ RightAI.prototype.onCollide = function(tile){
 }
 
 var RightBounceAI = function(x, y) {
-	this.x = x;
-	this.y = y;
+	this.init(x, y);
 }
 RightBounceAI.prototype = Object.create(AI);
 RightBounceAI.prototype.vx = 7;
@@ -65,8 +66,7 @@ RightBounceAI.prototype.update = function(gridSize) {
 }
 
 var FollowAI = function(x, y) {
-	this.x = x;
-	this.y = y;
+	this.init(x, y);
 }
 FollowAI.prototype = Object.create(AI);
 FollowAI.prototype.update = function(gridSize) {
@@ -76,6 +76,10 @@ FollowAI.prototype.update = function(gridSize) {
 FollowAI.prototype.onCollide = function(tile) {
 	if(tile.blocksMovement) 
 		world.death();
+}
+
+var LeftTurnAI = function(x, y) {
+	this.init(x, y);
 }
 
 var getAI = function(x, y, id) {
