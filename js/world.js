@@ -76,7 +76,7 @@ var world = function() {
 			floor.push([]);
 			for (var x = 0; x < currentLevel.sizeX; x++) {
 				if (currentLevel.tiles[y][x] >= 0) {
-					floor[y].push(getTile(currentLevel.tiles[y][x]));
+					floor[y].push(getTile(x*gridSize, y*gridSize, currentLevel.tiles[y][x]));
 				}
 				else {
 					floor[y].push(getTile(0));	
@@ -88,7 +88,6 @@ var world = function() {
 				}
 			}
 		}
-		console.log(aiEntities);
 	}
 
 	var run = function() {
@@ -109,7 +108,7 @@ var world = function() {
 		var touchingTiles = collide(player).tiles;
 		for(var i=0; i<touchingTiles.length; i++) {
 			if(touchingTiles[i].blocksMovement) {
-				player.hitWall();
+				player.hitWall(touchingTiles[i].x, touchingTiles[i].y);
 			}
 			else {
 				touchingTiles[i].onCollide(player);

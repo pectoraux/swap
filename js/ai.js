@@ -77,10 +77,12 @@ var LeftTurnRightAI = function(x, y) {
 }
 LeftTurnRightAI.prototype = Object.create(AI);
 LeftTurnRightAI.prototype.update = function(gridSize) {
-	if(this.vx!=0)
-		this.x += gridSize/this.vx;
-	if(this.vy!=0)
-		this.y += gridSize/this.vy; 
+	if(!this.hitWall) {
+		if(this.vx!=0)
+			this.x += gridSize/this.vx;
+		if(this.vy!=0)
+			this.y += gridSize/this.vy; 
+	}
 	this.hitWall = false;
 }
 LeftTurnRightAI.prototype.onCollide = function(tile) {
@@ -96,8 +98,8 @@ LeftTurnRightAI.prototype.onCollide = function(tile) {
 		else if (this.vxo < 0) this.vy = 7; 
 		else if (this.vyo > 0) this.vx = 7;
 		else if (this.vyo < 0) this.vx = -7;
+		this.hitWall = true;
 	}
-	this.hitWall = true;
 }
 
 var getAI = function(x, y, id) {

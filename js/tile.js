@@ -2,6 +2,10 @@ var switchedTiles = [];
 switchedTiles.length = 10;
 
 var Tile = {
+	init: function(x, y){
+		this.x = x;
+		this.y = y;
+	},
 	update: function() {},
 	onCollide: function(ai) {},
 	blocksMovement: false,
@@ -9,29 +13,39 @@ var Tile = {
 	color:"white",
 };
 
-var FloorTile = function(){};
+var FloorTile = function(x, y){
+	this.init(x, y);
+};
 FloorTile.prototype = Object.create(Tile);
 
-var LavaTile = function(){};
+var LavaTile = function(x, y){
+	this.init(x, y);
+};
 LavaTile.prototype = Object.create(Tile);
 LavaTile.prototype.onCollide = function(ai) {
 	world.death();
 }
 LavaTile.prototype.color = "red";
 
-var VictoryTile = function(){};
+var VictoryTile = function(x, y){
+	this.init(x, y);
+};
 VictoryTile.prototype = Object.create(Tile);
 VictoryTile.prototype.onCollide = function(ai) {
 	world.victory();
 }
 VictoryTile.prototype.color = "rgb(163, 211, 156)"; //"rgba(95, 255, 80, 1.0)";
 
-var WallTile = function(){};
+var WallTile = function(x, y){
+	this.init(x, y);
+};
 WallTile.prototype = Object.create(Tile);
 WallTile.prototype.blocksMovement = true;
 WallTile.prototype.color = "grey";
 
-var SwitchedTile = function(){};
+var SwitchedTile = function(x, y){
+	this.init(x, y);
+};
 SwitchedTile.prototype = Object.create(Tile);
 SwitchedTile.prototype.blocksMovement = true;
 SwitchedTile.prototype.color = "rgb(253, 198, 137)";
@@ -45,7 +59,8 @@ SwitchedTile.prototype.update = function(ai) {
 	this.justTouching = false;
 }
 
-var SwitchTile = function(id){
+var SwitchTile = function(x, y, id){
+	this.init(x, y);
 	this.switchingId = id;
 }
 SwitchTile.prototype = Object.create(Tile);
@@ -65,25 +80,25 @@ SwitchTile.prototype.update = function() {
 	this.down = false;
 }
 
-var getTile = function(id) {
+var getTile = function(x, y, id) {
 	if(19<id && id<30) {
-		t = new SwitchedTile()
+		t = new SwitchedTile(x, y)
 		switchedTiles[id-20] = t;
 		return t;
 	}
 	else if(9<id && id<20) {
-		return new SwitchTile(id-10);
+		return new SwitchTile(x, y, id-10);
 	}
 	else {
 		switch(id) {
 			case 1:
-				return new WallTile();
+				return new WallTile(x, y);
 			case 2:
-				return new VictoryTile();
+				return new VictoryTile(x, y);
 			case 3:
-				return new LavaTile();
+				return new LavaTile(x, y);
 			default:
-				return new FloorTile();
+				return new FloorTile(x, y);
 		}
 	}
 }

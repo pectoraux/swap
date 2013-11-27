@@ -90,7 +90,6 @@ combos_inGame = [
 	},
 	"on_keyup": function() {
 		input.right = false;
-		console.log("Right up");
 	}
 },
 {

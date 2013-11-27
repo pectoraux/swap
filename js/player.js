@@ -56,13 +56,21 @@ var player = function() {
 		this.y += vy;
 	}
 
-	var hitWall = function() {
+	var hitWall = function(x, y) {
 		if(this.trail[1]) {
 			this.x = this.trail[1][0] || this.x;
 			this.y = this.trail[1][1] || this.y;
 		}
-		vx *= -0.3;
-		vy *= -0.3;
+		// vx *= -0.3;
+		// vy *= -0.3;
+		// var cornerX = this.x - (gridSize/2);
+		// var cornerY = this.y - (gridSize/2);
+		// if(x+gridSize>cornerX || x<cornerX+gridSize) {
+		// 	x = trail[1][0];
+		// 	console.log("hax");
+		// }
+		// if(y+gridSize>cornerY || y<cornerY+gridSize)
+		// 	y = trail[1][1];
 	}
 
 	var getVelocity = function() {
