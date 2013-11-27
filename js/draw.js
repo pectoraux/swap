@@ -26,7 +26,7 @@ var renderer = function() {
 	}
 
 	var renderText = function(deaths, level, tip) {
-		hud.innerHTML = deaths + " Deaths " + " | Level " + level + " / " + (levels.length-1) + " <sup><a style='font-size: 12px; text-decoration: none;' href='/swap/levels/level"+level+".html'>(link)</a></sup>";
+		hud.innerHTML = deaths + " Deaths " + " | Level " + (level+1) + " / " + levels.length + " <sup><a style='font-size: 12px; text-decoration: none;' href='#"+(level+1)+"'>(link)</a></sup>";
 		tipDisplay.innerHTML =  "<em>" + tip + "</em>";
 	}
 

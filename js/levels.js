@@ -4,7 +4,7 @@ Key:
 0 - white tile
 2 - green tile (goal)
 3 - red tile (lava)
-10-19 - switch (corresponds with wall n+10 where n is its number)
+10-19 - switch (corresponds with wall n+10 where n is its numbe.r)
 20-29 - switched wall
 
 -1 - normal player
@@ -21,10 +21,10 @@ var levels = [
 		startY: 8,
 		tiles: [
 		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+		[1, 0, 0, 0, 0, 0, 0, 0, 2, 1],
 		[1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
 		[1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
 		[1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-		[1, 0, 0, 0, 0, 0,-5, 0, 0, 1],
 		[1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
 		[1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
 		[1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
