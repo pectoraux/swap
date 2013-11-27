@@ -77,12 +77,12 @@ var LeftTurnRightAI = function(x, y) {
 }
 LeftTurnRightAI.prototype = Object.create(AI);
 LeftTurnRightAI.prototype.update = function(gridSize) {
-	if(!this.hitWall) {
-		if(this.vx!=0)
-			this.x += gridSize/this.vx;
-		if(this.vy!=0)
-			this.y += gridSize/this.vy; 
-	}
+	this.prevX = this.x;
+	this.prevY = this.y;
+	if(this.vx!=0)
+		this.x += gridSize/this.vx;
+	if(this.vy!=0)
+		this.y += gridSize/this.vy; 
 	this.hitWall = false;
 }
 LeftTurnRightAI.prototype.onCollide = function(tile) {
@@ -90,6 +90,8 @@ LeftTurnRightAI.prototype.onCollide = function(tile) {
 	// goes into wall before changing dir, so onCollide still runs
 	// making it go in a U turn
 	if(tile.blocksMovement && !this.hitWall) {
+		this.x = this.prevX;
+		this.y = this.prevY;
 		this.vxo = this.vx;
 		this.vyo = this.vy;
 		this.vx = 0;
