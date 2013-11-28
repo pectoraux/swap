@@ -74,7 +74,7 @@ var player = function() {
 		// var cornerY = this.y - (gridSize/2);
 		// if(x+gridSize>cornerX || x<cornerX+gridSize) {
 		// 	x = trail[1][0];
-		// 	console.log("hax");
+		// 	console.log("hacks");
 		// }
 		// if(y+gridSize>cornerY || y<cornerY+gridSize)
 		// 	y = trail[1][1];
