@@ -12,6 +12,7 @@
 	<script src="js/input.js"></script>
 	<script type="text/javascript">
 		window.onload = function() {
+			//http://stackoverflow.com/questions/7425502/how-to-return-integer-from-url-hash-using-javascript
 			var level = window.location.hash.match(/\d+/) | 1;
 			world.init(level-1, "canvas", "hud", "tip");
 			document.getElementById("reset").onclick = function() {
@@ -38,8 +39,8 @@
 		}
 		body { 
 			font-family: "Open Sans", sans-serif; font-weight: 400; 
-			-webkit-transform: rotateZ(0deg); /* Activates graphics acceleration and improves performance in some cases... */
-		}
+/*			-webkit-transform: rotateZ(0deg);  Activates graphics acceleration and improves performance in some cases... 
+*/		}
 		#reset {
 			float: left;
 		}
@@ -61,7 +62,7 @@
 	<a href="#" id="skip" class="action-btn"><em>Skip <i class="fa fa-forward"></i></em></a>
 </div>
 <br>
-<div id="tip" style="font-size: 32px;"></div>
+<div id="tip" style="font-size: 24px;"></div>
 
 <!-- AddThis Smart Layers BEGIN -->
 <!-- Go to http://www.addthis.com/get/smart-layers to customize -->
