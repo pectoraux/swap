@@ -25,6 +25,7 @@ combos_dialogue = [
 	"on_keyup": function() {
 		world.closeDialogue();
 	},
+	"prevent_default": true,
 }
 ];
 
@@ -36,7 +37,8 @@ combos_inGame = [
 	},
 	"on_keyup": function() {
 		input.up = false;
-	}
+	},
+	"prevent_default": true,
 }, 
 {
 	"keys": "left",
@@ -63,7 +65,8 @@ combos_inGame = [
 	},
 	"on_keyup": function() {
 		input.down = false;
-	}
+	},
+	"prevent_default": true,
 },
 {
 	"keys": "w",
@@ -106,6 +109,7 @@ combos_inGame = [
 	"on_keyup": function() {
 		world.cyclePlayer();
 	},
+	"prevent_default": true,
 },
 {
 	"keys": "r",

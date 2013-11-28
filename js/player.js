@@ -51,7 +51,14 @@ var player = function() {
         if(!input.up && !input.down) {
         	vy = vy / friction;
         }
-
+        if(vx>7)
+        	vx=7;
+        else if(vx<-7)
+        	vx=-7;
+        if(vy>7)
+        	vy=7;
+        else if(vy<-7)
+        	vy=-7;
 		this.x += vx;
 		this.y += vy;
 	}
