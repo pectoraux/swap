@@ -62,12 +62,19 @@ var FollowAI = function(x, y) {
 }
 FollowAI.prototype = Object.create(AI);
 FollowAI.prototype.update = function(gridSize) {
-	this.x += player.getVelocity().x;
-	this.y += player.getVelocity().y;
+	if (!this.hitWall) {
+		this.prevX = this.x;
+		this.prevY = this.y;
+		this.x += player.getVelocity().x;
+		this.y += player.getVelocity().y;
+	}
+	this.hitWall = false;
 }
 FollowAI.prototype.onCollide = function(tile) {
 	if(tile.blocksMovement) {
-		player.hitWall(0, 0);
+		this.hitWall = true;
+		this.x = this.prevX;
+		this.y = this.prevY;
 	}
 }
 
@@ -86,9 +93,6 @@ LeftTurnRightAI.prototype.update = function(gridSize) {
 	this.hitWall = false;
 }
 LeftTurnRightAI.prototype.onCollide = function(tile) {
-	// fix this! collision is quite funky
-	// goes into wall before changing dir, so onCollide still runs
-	// making it go in a U turn
 	if(tile.blocksMovement && !this.hitWall) {
 		this.x = this.prevX;
 		this.y = this.prevY;

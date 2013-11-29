@@ -31,7 +31,7 @@ var levels = [
 		[1,-1, 0, 0, 0, 0, 0, 0, 0, 1],
 		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 		],
-		tip: "Use arrows or WASD to move...",
+		tip: "Use arrows or WASD to move.",
 	},
 	{
 		sizeX: 10,
@@ -69,7 +69,7 @@ var levels = [
 		[1,-1, 0, 0, 0, 0, 0, 0, 0, 1],
 		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 		],
-		tip: "Trolololo - try hitting space.",
+		tip: "Try hitting space.",
 	},
 	{
 		sizeX: 10,
@@ -107,7 +107,7 @@ var levels = [
 		[1,-3, 0, 0, 0, 0, 0, 0, 3, 1],
 		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 		],
-		tip: "You can be fast or clever...",
+		tip: "You have to be either fast or clever.",
 	},
 	{
 		sizeX: 10,
@@ -126,7 +126,7 @@ var levels = [
 		[1, 0, 0, 0, 1, 3, 0, 0, 0, 3],
 		[1, 1, 1, 1, 1, 3, 3, 3, 3, 3],
 		],
-		tip: "No, this isn't a bug - figure out what's going on here.",
+		tip: "What's going on here?",
 	},
 	{
 		sizeX: 10,
@@ -164,7 +164,7 @@ var levels = [
 		[1,-2, 0, 0, 0, 0, 0, 0, 3, 1],
 		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 		],
-		tip: ":)",
+		tip: ";)",
 	},
 	{
 		sizeX: 10,
@@ -183,7 +183,7 @@ var levels = [
 		[1,-1, 0,-1,10, 0, 0, 0, 0, 1],
 		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 		],
-		tip: "There's nothing like teamwork!",
+		tip: "Impossible? Move over the yellow square.",
 	},
 	{
 		sizeX: 14,
@@ -202,7 +202,7 @@ var levels = [
 		[1,-1, 0,13, 1, 0, 0, 0,10, 1, 0,-1, 0, 1],
 		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 		],
-		tip: "No pressure.",
+		tip: "There's nothing like teamwork!",
 	},
 	{
 		sizeX: 10,
@@ -221,7 +221,7 @@ var levels = [
 		[1, 3,-3, 0, 0, 0, 0, 0, 0, 1],
 		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 		],
-		tip: "Sorry, the bouncing is here to stay.",
+		tip: "Sorry, but the bouncing is here to stay.",
 	},
 	{
 		sizeX: 14,
@@ -301,7 +301,7 @@ var levels = [
 		[1, 3, 3, 3, 3, 3, 3, 1, 1, 1],
 		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 		],
-		tip: "Careful... don't increment your death counter on something dumb like this.",
+		tip: "Speed is the key.",
 	},
 	{
 		sizeX: 13,
@@ -345,7 +345,7 @@ var levels = [
 		[1,-5, 0, 0, 1, 0, 2, 0, 0, 1,12,-2, 1],
 		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 		],
-		tip: "This one's special!",
+		tip: "This one's different!",
 	},
 	{
 		sizeX: 21,
