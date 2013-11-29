@@ -31,6 +31,8 @@ Acknowledgements
 -----------------
 * [@goldsmith](https://github.com/goldsmith) for his Javascript mentorship
 
+* The background music is "2nd Ballad" by [DeceasedSuperiorTechnician](http://www.nosoapradio.us/)
+
 * The kind people of Reddit's [/r/gamedev](http://www.reddit.com/r/gamedev) for feedback and advice:
   * [Using event driven vs Polling Input](http://www.reddit.com/r/gamedev/comments/1qee41/using_event_driven_vs_polling_input/)
   * [Feedback Friday 55](http://www.reddit.com/r/gamedev/comments/1qnozf/feedback_friday_55/cdep5ni)

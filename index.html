@@ -21,6 +21,14 @@
 			document.getElementById("skip").onclick = function() {
 				world.victory();
 			}
+			document.getElementById("mute").onclick = function() {
+				var music = document.getElementById("music");
+				if(music.paused)
+					music.play();
+				else
+					music.pause();
+			}
+
 		}
 	</script>
 
@@ -55,7 +63,10 @@
 <a href="https://github.com/nmoroze/swap"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
 <center>
 
-<div id="hud" style="font-size: 24px;"></div>
+<div style="width: 640px;">
+	<span id="hud" style="font-size: 24px;"></span>
+	<span style="float: right; font-size: 36px;"> <a href="#" id="mute" class="action-btn"><i class="fa fa-volume-off"></i></a></span>
+</div>
 <br>
 <canvas id="canvas" width="640" height="640" style="box-shadow:0 0 15px darkgrey"></canvas>
 <div style="width: 640px;font-size:18px;">
