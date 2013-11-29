@@ -386,7 +386,7 @@ var levels = [
 		[1, -5, 0, 0, 0, 0, 1, 14, 22, 23, 4, -3, 1],
 		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 		],
-		tip: "When in doubt, swap!",
+		tip: "When in doubt, swap it out!",
 	},
 	{
 		sizeX: 21,
