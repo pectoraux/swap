@@ -65,8 +65,8 @@ var player = function() {
 
 	var hitWall = function(x, y) {
 		if(this.trail[1]) {
-			this.x = this.trail[1][0] || this.x;
-			this.y = this.trail[1][1] || this.y;
+			this.x = this.trail[1][0];
+			this.y = this.trail[1][1];
 		}
 		// vx *= -0.3;
 		// vy *= -0.3;

@@ -13,7 +13,7 @@
 	<script type="text/javascript">
 		window.onload = function() {
 			//http://stackoverflow.com/questions/7425502/how-to-return-integer-from-url-hash-using-javascript
-			var level = window.location.hash.match(/\d+/) | 1;
+			var level = window.location.hash.match(/\d+/) || 1;
 			world.init(level-1, "canvas", "hud", "tip");
 			document.getElementById("reset").onclick = function() {
 				world.resetLevel();

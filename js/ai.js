@@ -62,20 +62,13 @@ var FollowAI = function(x, y) {
 }
 FollowAI.prototype = Object.create(AI);
 FollowAI.prototype.update = function(gridSize) {
-	if (!this.hitWall) {
-		this.prevX = this.x;
-		this.prevY = this.y;
-		this.x += player.getVelocity().x;
-		this.y += player.getVelocity().y;
-	}
-	this.hitWall = false;
+	this.x += player.getVelocity().x;
+	this.y += player.getVelocity().y;
 }
 FollowAI.prototype.onCollide = function(tile) {
-		if(tile.blocksMovement) {
-			this.hitWall = true;
-			this.x = this.prevX;
-			this.y = this.prevY;
-		}
+	if(tile.blocksMovement) {
+		player.hitWall(0, 0);
+	}
 }
 
 var LeftTurnRightAI = function(x, y) {
