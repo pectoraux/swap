@@ -23,11 +23,13 @@ var AI = {
 	},
 };
 
+// STATIONARY AI 
 var StationaryAI = function(x, y) {
 	this.init(x, y);
 }
 StationaryAI.prototype = Object.create(AI);
 
+// RIGHT AI
 var RightAI = function(x, y) {
 	this.init(x, y);
 	this.vx = 7;
@@ -35,6 +37,7 @@ var RightAI = function(x, y) {
 }
 RightAI.prototype = Object.create(AI);
 
+// BOUNCE AI (RIGHT) (starts right, reverses direction on walls)
 var RightBounceAI = function(x, y) {
 	this.init(x, y);
 	this.vx = 7;
@@ -47,7 +50,6 @@ RightBounceAI.prototype.onCollide = function(tile) {
 		this.hitWall = true;
 	}
 }
-
 RightBounceAI.prototype.update = function(gridSize) {
 	this.hitWall = false;
 
@@ -57,6 +59,7 @@ RightBounceAI.prototype.update = function(gridSize) {
 		this.y += gridSize/this.vy; 
 }
 
+// FOLLOW AI (follows player movements)
 var FollowAI = function(x, y) {
 	this.init(x, y);
 }
@@ -78,6 +81,7 @@ FollowAI.prototype.onCollide = function(tile) {
 	}
 }
 
+// LEFT TURN AI (RIGHT) (starts right, turns left on walls)
 var LeftTurnRightAI = function(x, y) {
 	this.init(x, y);
 	this.vx = 7;
@@ -107,6 +111,7 @@ LeftTurnRightAI.prototype.onCollide = function(tile) {
 		this.hitWall = true;
 	}
 }
+
 
 var getAI = function(x, y, id) {
 	switch(id) {

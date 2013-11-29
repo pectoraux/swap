@@ -63,11 +63,13 @@ var player = function() {
 		this.y += vy;
 	}
 
-	var hitWall = function(x, y) {
+	var hitWall = function() {
 		if(this.trail[1]) {
 			this.x = this.trail[1][0];
 			this.y = this.trail[1][1];
 		}
+
+
 		// vx *= -0.3;
 		// vy *= -0.3;
 		// var cornerX = this.x - (gridSize/2);

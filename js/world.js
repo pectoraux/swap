@@ -108,7 +108,7 @@ var world = function() {
 		var touchingTiles = collide(player).tiles;
 		for(var i=0; i<touchingTiles.length; i++) {
 			if(touchingTiles[i].blocksMovement || touchingTiles[i].blocksOnlyPlayer) {
-				player.hitWall(touchingTiles[i].x, touchingTiles[i].y);
+				player.hitWall();
 			}
 			else {
 				touchingTiles[i].onCollide(player);
