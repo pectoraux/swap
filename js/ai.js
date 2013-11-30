@@ -76,7 +76,7 @@ FollowAI.prototype.update = function(gridSize) {
 FollowAI.prototype.onCollide = function(tile) {
 	if(tile.blocksMovement) {
 		this.hitWall = true;
-		this.x = this.prevX;
+		this.x = this.prevX; 
 		this.y = this.prevY;
 	}
 }

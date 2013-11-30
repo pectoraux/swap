@@ -1,5 +1,5 @@
-var switchedTiles = [];
-switchedTiles.length = 10;
+var switchedTiles = new Array(10);
+var anyDown = [];
 
 var Tile = {
 	init: function(x, y){
@@ -10,7 +10,6 @@ var Tile = {
 	onCollide: function(ai) {},
 	blocksMovement: false,
 	blocksOnlyPlayer: false,
-	//color: "rgb(235, 235, 235)",
 	color:"white",
 };
 
@@ -57,9 +56,10 @@ var SwitchedTile = function(x, y){
 SwitchedTile.prototype = Object.create(Tile);
 SwitchedTile.prototype.onCollide = function(ai) {
 	this.touchingAI = true;
+	// console.log(ai);
 	this.justTouching = true;
 }
-SwitchedTile.prototype.update = function(ai) {
+SwitchedTile.prototype.update = function() {
 	if(!this.justTouching)
 		this.touchingAI = false;
 	this.justTouching = false;
@@ -74,17 +74,18 @@ var SwitchTile = function(x, y, id){
 SwitchTile.prototype = Object.create(Tile);
 SwitchTile.prototype.onCollide = function(ai) {
 	this.down = true;
+	anyDown[this.switchingId] = true;
 	switchedTiles[this.switchingId].blocksMovement = false;
 	switchedTiles[this.switchingId].color = "rgb(235, 235, 235)";
 }
 SwitchTile.prototype.update = function() {
-	if(!this.down) {
+	if(!anyDown[this.switchingId]) {
 		if(!switchedTiles[this.switchingId].touchingAI) {
 			switchedTiles[this.switchingId].blocksMovement = true;
 			switchedTiles[this.switchingId].color = "rgb(253, 198, 137)";
 		}
 	}
-	this.down = false;
+	anyDown[this.switchingId] = false;
 }
 
 // PLAYER WALL TILE (blocks only player)
@@ -100,6 +101,7 @@ var getTile = function(x, y, id) {
 	if(19<id && id<30) {
 		t = new SwitchedTile(x, y)
 		switchedTiles[id-20] = t;
+		anyDown.push(false);
 		return t;
 	}
 	else if(9<id && id<20) {

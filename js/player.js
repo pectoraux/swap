@@ -3,7 +3,7 @@ var player = function() {
 	var prevX, prevY;
 	var vx = 0, vy = 0;
 	var currentAI;
-	var friction = 1.5;
+	var friction = 1.6;
 	var trail = [];
 	var gridSize;
 
@@ -26,7 +26,7 @@ var player = function() {
 		this.currentAI.y = this.y;
 		return this.currentAI;
 	}
-	var update = function(gridSize) { // weird inconsistent speed cap issue
+	var update = function(gridSize) {
 		prevX = x;
 		prevY = y;
 		this.trail.push([this.x, this.y]);
@@ -68,7 +68,8 @@ var player = function() {
 			this.x = this.trail[1][0];
 			this.y = this.trail[1][1];
 		}
-
+		vx = vx / friction;
+		vy = vy / friction;
 
 		// vx *= -0.3;
 		// vy *= -0.3;

@@ -103,16 +103,21 @@ var world = function() {
 	}	
 
 	var update = function() {
+		for(var y=0; y<floor.length; y++) {
+			for(var x=0; x<floor[y].length; x++) {
+				floor[y][x].update();
+			}
+		}
+
 		//update player and player collision
 		player.update(gridSize);
 		var touchingTiles = collide(player).tiles;
 		for(var i=0; i<touchingTiles.length; i++) {
 			if(touchingTiles[i].blocksMovement || touchingTiles[i].blocksOnlyPlayer) {
 				player.hitWall();
+				// console.log(touchingTiles[i]);
 			}
-			else {
-				touchingTiles[i].onCollide(player);
-			}
+			touchingTiles[i].onCollide(player);
 		}
 
 		//update AIs and AI collisions
@@ -121,14 +126,7 @@ var world = function() {
 			var touchingTiles = collide(aiEntities[i]).tiles;
 			for(var j=0; j<touchingTiles.length; j++) {
 				aiEntities[i].onCollide(touchingTiles[j]);
-				if(touchingTiles[j].onCollide(aiEntities[i]))
-					break;
-			}
-		}
-
-		for(var y=0; y<floor.length; y++) {
-			for(var x=0; x<floor[y].length; x++) {
-				floor[y][x].update();
+				touchingTiles[j].onCollide(aiEntities[i])
 			}
 		}
 
