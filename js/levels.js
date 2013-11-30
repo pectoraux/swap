@@ -427,7 +427,7 @@ var levels = [
 		[1, 0, 0,11, 1, 0, 1, 4, 4, 4, 4, 4, 1],
 		[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 		],
-		tip: "lol.",
+		tip: "Two are better than one.",
 	},
 	{
 		sizeX: 21,
