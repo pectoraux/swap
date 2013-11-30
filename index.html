@@ -36,9 +36,9 @@
 		}
 	</script>
 
-	<audio id="music" src="music.mp3" preload autoplay loop></audio>
+	<!-- <audio id="music" src="music.mp3" preload autoplay loop></audio> -->
 	<meta property="og:image" content="thumbnail.png" />
-	<link rel="shortcut icon" type"'image/x-icon" href"'/favicon.ico" />
+	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
 	<link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
 	<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 
@@ -66,20 +66,20 @@
 </head>
 <body>
 <a href="https://github.com/nmoroze/swap"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
-<center>
+<div style="margin: 0 auto; text-align: center;">
 	<div style="width: 640px;">
-		<span id="hud" style="font-size: 24px;"></span>
+		<span id="hud" style="font-size: 24px; position: absolute"></span>
 		<span style="float: right;font-size: 36px;"><a href="#" id="mute" class="action-btn"><i class="fa fa-volume-up"></i></a></span>
 	</div>
 	<br>
-<canvas id="canvas" width="640" height="640" style="box-shadow:0 0 15px darkgrey"></canvas>
-<div style="width: 640px;font-size:18px;">
+<canvas id="canvas" width="640" height="640" style="box-shadow:0 0 15px darkgrey;"></canvas>
+<span style="width: 640px;font-size:18px; display: inline-block;">
 	<a href="#" id="reset" class="action-btn"><em>Reset <i class="fa fa-repeat"></i></em></a>
 	<a href="#" id="skip" class="action-btn"><em>Skip <i class="fa fa-forward"></i></em></a>
-</div>
+</span>
 <br>
-<div id="tip" style="font-size: 24px;"></div>
-</center>
+<span id="tip" style="font-size: 24px; text-align: center;"></span>
+</div>	
 <!-- AddThis Smart Layers BEGIN -->
 <!-- Go to http://www.addthis.com/get/smart-layers to customize -->
 <script type="text/javascript" src="https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-528c256940c52555"></script>
@@ -93,7 +93,7 @@
     'whatsnext' : {},  
     'recommended' : {} 
   });
-</script>
+</script> 
 <!-- AddThis Smart Layers END -->
 
 <script type="text/javascript" src="http://codeorigin.jquery.com/jquery-2.0.3.min.js"></script>
