@@ -6,6 +6,10 @@ var player = function() {
 	var friction = 1.6;
 	var trail = [];
 	var gridSize;
+	// var hitRight = false;
+	// var hitLeft = false;
+	// var hitUp = false;
+	// var hitDown = false;
 
 	var init = function(gSize) {
 		gridSize = gSize;
@@ -63,24 +67,40 @@ var player = function() {
 		this.y += vy;
 	}
 
-	var hitWall = function() {
+	var hitWall = function(x, y) {
 		if(this.trail[1]) {
 			this.x = this.trail[1][0];
 			this.y = this.trail[1][1];
 		}
+		// justHit = true;
+		// if(vx*vx>vy*vy) {
+		// 	vx=0;
+		// 	hitSide = true;
+		// }
+		// if(vy*vy>vx*vx) {
+		// 	vy=0;
+		// 	hitUp = true;
+		// }
+
+		// if(vx*vx>vy*vy) {
+		// 	vx = 0;
+		// 	if(this.x>x)
+		// 		hitLeft = true;
+		// 	else if(this.x<x+gridSize)
+		// 		hitRight = true;
+		// }
+		// if(vy*vy>vx*vx) {
+		// 	vy = 0;
+		// 	if(this.y>y)
+		// 		hitUp = true;
+		// 	else if(this.y<y+gridSize)
+		// 		hitDown = true;
+		// }
 		// vx = vx / friction;
 		// vy = vy / friction;
 
 		// vx *= -0.3;
 		// vy *= -0.3;
-		// var cornerX = this.x - (gridSize/2);
-		// var cornerY = this.y - (gridSize/2);
-		// if(x+gridSize>cornerX || x<cornerX+gridSize) {
-		// 	x = trail[1][0];
-		// 	console.log("hacks");
-		// }
-		// if(y+gridSize>cornerY || y<cornerY+gridSize)
-		// 	y = trail[1][1];
 	}
 
 	var getVelocity = function() {
