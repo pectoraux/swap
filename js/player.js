@@ -68,8 +68,8 @@ var player = function() {
 			this.x = this.trail[1][0];
 			this.y = this.trail[1][1];
 		}
-		vx = vx / friction;
-		vy = vy / friction;
+		// vx = vx / friction;
+		// vy = vy / friction;
 
 		// vx *= -0.3;
 		// vy *= -0.3;

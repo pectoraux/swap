@@ -112,6 +112,14 @@ LeftTurnRightAI.prototype.onCollide = function(tile) {
 	}
 }
 
+// UP AI
+var UpAI = function(x, y) {
+	this.init(x, y);
+	this.vy = -7;
+	this.hitWall = false;
+}
+UpAI.prototype = Object.create(AI);
+
 
 var getAI = function(x, y, id) {
 	switch(id) {
@@ -125,5 +133,7 @@ var getAI = function(x, y, id) {
 			return new FollowAI(x, y);
 		case -5:
 			return new LeftTurnRightAI(x, y);
+		case -6:
+			return new UpAI(x, y);
 	}
 }
