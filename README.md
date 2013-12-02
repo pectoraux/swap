@@ -21,15 +21,9 @@ Space - switch to another character
 
 Screenshots
 -----------------
-![Welcome](http://i.imgur.com/AJJg9Me.png)
+![Welcome](http://i.imgur.com/AJJg9Me.png?1)
 
-![Teamwork!](http://i.imgur.com/4mKicnn.png)
-
-![Things are getting more complicated](http://i.imgur.com/5g60gzn.png)
-
-![Oh no!](http://i.imgur.com/ROzrsQO.png)
-
-![Yay!](http://i.imgur.com/zuHTMZu.png)
+![Teamwork!](http://i.imgur.com/4mKicnn.png?1)
 
 Libraries Used
 -----------------
