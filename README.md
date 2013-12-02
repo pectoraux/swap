@@ -6,7 +6,7 @@ By [@nmoroze](https://github.com/nmoroze) and [@themichaelyang](https://github.c
 
 About the Game
 -----------------
-Swap is new take on the classic tile-based puzzle game.
+Swap is a new take on the classic tile-based puzzle game.
 
 *Change* which character you're controlling to reach your goal -- but be careful, as characters you're not controlling will often have a mind of their own! Progress through a multitude of tricky and challenging levels, and watch as that death count piles up. If you're stuck, you can always hit the 'skip' button to move on, or the 'reset' button to start the level over.
 
@@ -23,11 +23,12 @@ Screenshots
 -----------------
 ![Welcome](http://i.imgur.com/AJJg9Me.png?1)
 
-![Teamwork!](http://i.imgur.com/4mKicnn.png?1)
+![In action!](http://i.imgur.com/b7ka27o.png?1)
 
-Libraries Used
------------------
+Open Source Projects Used
+-------------------------
 * [Keypress](http://dmauro.github.io/Keypress/) for input. 
+* [Font Awesome](http://fontawesome.io/) for icons.
 
 Acknowledgements
 -----------------
@@ -39,5 +40,7 @@ Acknowledgements
   * [Using event driven vs Polling Input](http://www.reddit.com/r/gamedev/comments/1qee41/using_event_driven_vs_polling_input/)
   * [Feedback Friday 55](http://www.reddit.com/r/gamedev/comments/1qnozf/feedback_friday_55/cdep5ni)
   * [Feedback Friday 56](http://www.reddit.com/r/gamedev/comments/1r71ps/feedback_friday_56/cdk8kjo)
+  * [Feedback Friday 57](http://www.reddit.com/r/gamedev/comments/1rp8au/feedback_friday_57/cdpkcg3)
+
 
 Thank you!
