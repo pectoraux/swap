@@ -58,7 +58,7 @@ var world = function() {
 
 	var death = function() {
 		// alert("You died! :O");
-		createDialogue("You died! :-O");
+		createDialogue("You died!");
 		clearInterval(intervalId);
 		if(!hasDied) 
 			deaths++; 
