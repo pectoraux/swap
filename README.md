@@ -4,6 +4,10 @@ Submission for the 2013 Github Game Jam
 
 By [@nmoroze](https://github.com/nmoroze) and [@themichaelyang](https://github.com/themichaelyang)
 
+Official link: http://nmoroze.github.io/swap
+
+*Note:* We recently became aware of an issue where a modified version of our game under a domain bearing a similar name was being used for adware. That website is in *no way* affiliated with us — Please only use the official link when playing the game! (In the meantime, we've issued a takedown notice to Google).
+
 About the Game
 -----------------
 Swap is a new take on the classic tile-based puzzle game.
