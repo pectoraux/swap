@@ -69,8 +69,27 @@ var player = function() {
 
 	var hitWall = function(x, y) {
 		if(this.trail[1]) {
-			this.x = this.trail[1][0];
-			this.y = this.trail[1][1];
+			if (x>this.trail[1][0]) {
+				if (x-this.trail[1][0] > gridSize) {
+					this.y = this.trail[1][1];
+				}
+			}
+			else {
+				if (this.trail[1][0]-x < gridSize) {
+					this.y = this.trail[1][1];
+				}
+			}
+
+			if (y>this.trail[1][1]) {
+				if (y-this.trail[1][1] > gridSize) {
+					this.x = this.trail[1][0];
+				}
+			}
+			else {
+				if (this.trail[1][1]-y < gridSize) {
+					this.x = this.trail[1][0];
+				}
+			}
 		}
 		// justHit = true;
 		// if(vx*vx>vy*vy) {
