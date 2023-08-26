@@ -60,10 +60,16 @@ var world = function() {
 		// alert("You died! :O");
 		createDialogue("You died!");
 		clearInterval(intervalId);
-		if(!hasDied) 
+		if(!hasDied) {
 			deaths++; 
+			console.log("=======================");
+			console.log(curLevel);
+			console.log(deaths);
+			console.log("=======================");
+		}
 		hasDied = true;
 		renderer.renderText(deaths, curLevel, levels[curLevel].tip);
+		curLevel = 0;
 		// initLevel(curLevel);
 	}
 
